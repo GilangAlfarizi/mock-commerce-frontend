@@ -33,15 +33,12 @@ export default function RootLayout({
 		<html
 			lang="en"
 			className={cn(
-				"h-full",
-				"antialiased",
+				"h-full w-full",
 				geistSans.variable,
 				geistMono.variable,
-				"font-mono",
 				jetbrainsMono.variable,
-        "max-w-5xl",
 			)}>
-			<body className="min-h-full flex flex-col">
+			<body className="min-h-full flex flex-col font-sans">
 				<TooltipProvider>{children}</TooltipProvider>
 			</body>
 		</html>

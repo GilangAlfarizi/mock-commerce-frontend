@@ -1,82 +1,65 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import clsx from "clsx";
-import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { House, Search, ShoppingCart } from "lucide-react";
+import Link from "next/link";
+
+const outlineBrutal =
+	"rounded-none border-black bg-white text-foreground shadow-none hover:bg-primary hover:text-white";
 
 export default function HomeNavbar() {
-	const [scrolled, setScrolled] = useState(false);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			setScrolled(window.scrollY > 80);
-		};
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
-
 	return (
-		<div
-			className={clsx(
-				"fixed left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-in-out",
-				scrolled ? "top-0" : "top-6",
-			)}>
-			<div
-				className={clsx(
-					"flex items-center justify-center gap-8 px-10 py-4 transition-all duration-300 ease-in-out font-semibold",
-					scrolled
-						? "w-full max-w-none rounded-none bg-white shadow-lg"
-						: "w-full rounded-full bg-white shadow-lg",
-				)}>
-				<div className="relative mt-6">
-					<Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 " />
-					<Input
-						placeholder="Search Product.."
-						className="pl-9 bg-transparent focus-visible:ring-0"
-					/>
+		<header className="sticky top-0 z-50 w-full border-b border-black bg-white">
+			<div className="mx-auto flex h-14 w-full max-w-none items-center gap-4 px-4 sm:px-6">
+				<Link
+					href="/home"
+					className="shrink-0 font-mono  font-semibold tracking-tight text-foreground">
+					Mock Commerce
+				</Link>
+
+				<div className="flex min-w-0 flex-1 items-center justify-center gap-2 sm:gap-3">
+					<Button
+						variant="outline"
+						size="default"
+						className={outlineBrutal}
+						asChild>
+						<Link href="/home">
+							<House />
+						</Link>
+					</Button>
+					<div className="relative min-w-0 max-w-md flex-1">
+						<Search
+							className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+							aria-hidden
+						/>
+						<Input
+							placeholder="Search products…"
+							className="h-9 rounded-none border-black bg-white pl-9 font-sans  focus-visible:border-black focus-visible:ring-1 focus-visible:ring-[#3f31d1]/40"
+							aria-label="Search products"
+						/>
+					</div>
+					<Button
+						variant="outline"
+						size="default"
+						className={outlineBrutal}
+						asChild>
+						<Link href="/products">See Products</Link>
+					</Button>
 				</div>
-				<a
-					href="#home"
-					onClick={(e) => {
-						e.preventDefault();
-					}}
-					className="hover:text-[#22333B] transition-colors duration-500">
-					Home
-				</a>
-				<a
-					href="#about"
-					onClick={(e) => {
-						e.preventDefault();
-					}}
-					className="hover:text-[#22333B] transition-colors duration-500">
-					About us
-				</a>
-				<a
-					href="#services"
-					onClick={(e) => {
-						e.preventDefault();
-					}}
-					className="hover:text-[#22333B] transition-colors duration-500">
-					Services
-				</a>
-				<a
-					href="#booking"
-					onClick={(e) => {
-						e.preventDefault();
-					}}
-					className="hover:text-[#22333B] transition-colors duration-500">
-					Store
-				</a>
-				<a
-					href="#contact"
-					onClick={(e) => {
-						e.preventDefault();
-					}}
-					className="hover:text-[#22333B] transition-colors duration-500">
-					Contact us
-				</a>
+
+				<div className="shrink-0">
+					<Button
+						variant="outline"
+						size="icon"
+						className={`${outlineBrutal} size-9`}
+						asChild>
+						<Link href="/cart" aria-label="Cart">
+							<ShoppingCart className="size-4" />
+						</Link>
+					</Button>
+				</div>
 			</div>
-		</div>
+		</header>
 	);
 }
