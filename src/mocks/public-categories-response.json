@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": "cat-outerwear",
+      "name": "Outerwear",
+      "slug": "outerwear",
+      "createdAt": "2026-01-05T10:00:00Z"
+    },
+    {
+      "id": "cat-tshirts",
+      "name": "T-Shirts",
+      "slug": "t-shirts",
+      "createdAt": "2026-01-05T10:00:00Z"
+    },
+    {
+      "id": "cat-accessories",
+      "name": "Accessories",
+      "slug": "accessories",
+      "createdAt": "2026-01-05T10:00:00Z"
+    },
+    {
+      "id": "cat-bottoms",
+      "name": "Bottoms",
+      "slug": "bottoms",
+      "createdAt": "2026-01-05T10:00:00Z"
+    }
+  ],
+  "message": "categories fetched"
+}

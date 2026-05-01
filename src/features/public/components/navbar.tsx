@@ -6,15 +6,15 @@ import { House, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 const outlineBrutal =
-	"rounded-none border-black bg-white text-foreground shadow-none hover:bg-primary hover:text-white";
+	"rounded-none border-black bg-cream text-foreground shadow-none hover:bg-surface hover:text-foreground";
 
 export default function HomeNavbar() {
 	return (
-		<header className="sticky top-0 z-50 w-full border-b border-black bg-white">
-			<div className="mx-auto flex h-14 w-full max-w-none items-center gap-4 px-4 sm:px-6">
+		<header className="sticky top-0 z-50 w-full border-b border-black bg-primary text-cream-foreground">
+			<div className="mx-auto flex h-14 w-full max-w-5xl items-center gap-4 px-4 sm:px-6 lg:px-8">
 				<Link
 					href="/home"
-					className="shrink-0 font-mono  font-semibold tracking-tight text-foreground">
+					className="shrink-0 font-mono  font-semibold tracking-tight text-surface">
 					Mock Commerce
 				</Link>
 
@@ -35,7 +35,7 @@ export default function HomeNavbar() {
 						/>
 						<Input
 							placeholder="Search products…"
-							className="h-9 rounded-none border-black bg-white pl-9 font-sans  focus-visible:border-black focus-visible:ring-1 focus-visible:ring-[#3f31d1]/40"
+							className="h-9 rounded-none border-black bg-surface pl-9 font-sans focus-visible:border-black focus-visible:ring-1 focus-visible:ring-ring/40"
 							aria-label="Search products"
 						/>
 					</div>

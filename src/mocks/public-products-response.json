@@ -1,0 +1,131 @@
+{
+  "data": [
+    {
+      "id": "prod-null-pointer-tee",
+      "name": "Null Pointer Tee",
+      "slug": "null-pointer-tee",
+      "description": "Soft cotton. Hard truth. Crashes less than your staging server.",
+      "price": 189000,
+      "imageUrl": "/images/mock/null-pointer-tee.jpg",
+      "categoryName": "T-Shirts",
+      "categorySlug": "t-shirts"
+    },
+    {
+      "id": "prod-works-machine-hoodie",
+      "name": "Works On My Machine Hoodie",
+      "slug": "works-on-my-machine-hoodie",
+      "description": "A deployment-ready hoodie for every brave push to production.",
+      "price": 389000,
+      "imageUrl": "/images/mock/works-machine-hoodie.jpg",
+      "categoryName": "Outerwear",
+      "categorySlug": "outerwear"
+    },
+    {
+      "id": "prod-git-blame-varsity",
+      "name": "Git Blame Varsity Jacket",
+      "slug": "git-blame-varsity-jacket",
+      "description": "Looks premium in meetings, feels honest in postmortems.",
+      "price": 649000,
+      "imageUrl": "/images/mock/git-blame-varsity.jpg",
+      "categoryName": "Outerwear",
+      "categorySlug": "outerwear"
+    },
+    {
+      "id": "prod-no-bugs-cap",
+      "name": "No Bugs, Just Features Cap",
+      "slug": "no-bugs-just-features-cap",
+      "description": "One size fits most sprint survivors and optimistic PMs.",
+      "price": 149000,
+      "imageUrl": "/images/mock/no-bugs-cap.jpg",
+      "categoryName": "Accessories",
+      "categorySlug": "accessories"
+    },
+    {
+      "id": "prod-rubber-duck-tee",
+      "name": "Rubber Duck Debug Tee",
+      "slug": "rubber-duck-debug-tee",
+      "description": "Talk through every bug while looking suspiciously cool.",
+      "price": 219000,
+      "imageUrl": "/images/mock/rubber-duck-tee.jpg",
+      "categoryName": "T-Shirts",
+      "categorySlug": "t-shirts"
+    },
+    {
+      "id": "prod-clean-architecture-shirt",
+      "name": "Clean Architecture Shirt",
+      "slug": "clean-architecture-shirt",
+      "description": "Layered comfort with fewer dependencies and better boundaries.",
+      "price": 259000,
+      "imageUrl": "/images/mock/clean-architecture-shirt.jpg",
+      "categoryName": "T-Shirts",
+      "categorySlug": "t-shirts"
+    },
+    {
+      "id": "prod-merge-conflict-joggers",
+      "name": "Merge Conflict Joggers",
+      "slug": "merge-conflict-joggers",
+      "description": "Two styles enter, one comfy branch leaves.",
+      "price": 329000,
+      "imageUrl": "/images/mock/merge-conflict-joggers.jpg",
+      "categoryName": "Bottoms",
+      "categorySlug": "bottoms"
+    },
+    {
+      "id": "prod-late-night-deploy-bag",
+      "name": "Late Night Deploy Sling Bag",
+      "slug": "late-night-deploy-sling-bag",
+      "description": "Holds charger, snacks, and emotional support sticky notes.",
+      "price": 279000,
+      "imageUrl": "/images/mock/deploy-sling-bag.jpg",
+      "categoryName": "Accessories",
+      "categorySlug": "accessories"
+    },
+    {
+      "id": "prod-semicolon-socks",
+      "name": "Semicolon Socks",
+      "slug": "semicolon-socks",
+      "description": "Tiny punctuation for your most important runtime: your feet.",
+      "price": 99000,
+      "imageUrl": "/images/mock/semicolon-socks.jpg",
+      "categoryName": "Accessories",
+      "categorySlug": "accessories"
+    },
+    {
+      "id": "prod-dark-mode-overshirt",
+      "name": "Dark Mode Overshirt",
+      "slug": "dark-mode-overshirt",
+      "description": "For developers who ship best after sunset.",
+      "price": 459000,
+      "imageUrl": "/images/mock/dark-mode-overshirt.jpg",
+      "categoryName": "Outerwear",
+      "categorySlug": "outerwear"
+    },
+    {
+      "id": "prod-daily-standup-shorts",
+      "name": "Daily Standup Shorts",
+      "slug": "daily-standup-shorts",
+      "description": "Comfort-first bottoms for meetings that could be a message.",
+      "price": 239000,
+      "imageUrl": "/images/mock/daily-standup-shorts.jpg",
+      "categoryName": "Bottoms",
+      "categorySlug": "bottoms"
+    },
+    {
+      "id": "prod-404-beanie",
+      "name": "404 Beanie Not Found",
+      "slug": "404-beanie-not-found",
+      "description": "If your hairstyle fails to compile, this is your fallback.",
+      "price": 169000,
+      "imageUrl": "/images/mock/404-beanie.jpg",
+      "categoryName": "Accessories",
+      "categorySlug": "accessories"
+    }
+  ],
+  "message": "products fetched",
+  "metadata": {
+    "page": 1,
+    "pageSize": 20,
+    "total": 12,
+    "totalPages": 1
+  }
+}

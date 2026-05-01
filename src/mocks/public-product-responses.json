@@ -1,0 +1,360 @@
+{
+  "responses": [
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-null-pointer-tee",
+        "name": "Null Pointer Tee",
+        "slug": "null-pointer-tee",
+        "description": "Soft cotton. Hard truth. Crashes less than your staging server.",
+        "price": 189000,
+        "imageUrl": "/images/mock/null-pointer-tee.jpg",
+        "categoryName": "T-Shirts",
+        "categorySlug": "t-shirts",
+        "variants": [
+          {
+            "id": "var-null-tee-s-black",
+            "sku": "NPT-S-BLK",
+            "size": "S",
+            "color": "Black",
+            "stock": 12,
+            "price": 0
+          },
+          {
+            "id": "var-null-tee-m-cream",
+            "sku": "NPT-M-CRM",
+            "size": "M",
+            "color": "Cream",
+            "stock": 10,
+            "price": 5000
+          },
+          {
+            "id": "var-null-tee-l-indigo",
+            "sku": "NPT-L-IND",
+            "size": "L",
+            "color": "Indigo",
+            "stock": 8,
+            "price": 10000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-works-machine-hoodie",
+        "name": "Works On My Machine Hoodie",
+        "slug": "works-on-my-machine-hoodie",
+        "description": "A deployment-ready hoodie for every brave push to production.",
+        "price": 389000,
+        "imageUrl": "/images/mock/works-machine-hoodie.jpg",
+        "categoryName": "Outerwear",
+        "categorySlug": "outerwear",
+        "variants": [
+          {
+            "id": "var-womh-m-black",
+            "sku": "WOMH-M-BLK",
+            "size": "M",
+            "color": "Black",
+            "stock": 6,
+            "price": 0
+          },
+          {
+            "id": "var-womh-l-navy",
+            "sku": "WOMH-L-NVY",
+            "size": "L",
+            "color": "Navy",
+            "stock": 5,
+            "price": 10000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-git-blame-varsity",
+        "name": "Git Blame Varsity Jacket",
+        "slug": "git-blame-varsity-jacket",
+        "description": "Looks premium in meetings, feels honest in postmortems.",
+        "price": 649000,
+        "imageUrl": "/images/mock/git-blame-varsity.jpg",
+        "categoryName": "Outerwear",
+        "categorySlug": "outerwear",
+        "variants": [
+          {
+            "id": "var-gbvj-m-black",
+            "sku": "GBVJ-M-BLK",
+            "size": "M",
+            "color": "Black",
+            "stock": 4,
+            "price": 0
+          },
+          {
+            "id": "var-gbvj-l-cream",
+            "sku": "GBVJ-L-CRM",
+            "size": "L",
+            "color": "Cream",
+            "stock": 2,
+            "price": 15000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-no-bugs-cap",
+        "name": "No Bugs, Just Features Cap",
+        "slug": "no-bugs-just-features-cap",
+        "description": "One size fits most sprint survivors and optimistic PMs.",
+        "price": 149000,
+        "imageUrl": "/images/mock/no-bugs-cap.jpg",
+        "categoryName": "Accessories",
+        "categorySlug": "accessories",
+        "variants": [
+          {
+            "id": "var-nbjf-os-black",
+            "sku": "NBJF-OS-BLK",
+            "size": "OS",
+            "color": "Black",
+            "stock": 20,
+            "price": 0
+          },
+          {
+            "id": "var-nbjf-os-olive",
+            "sku": "NBJF-OS-OLV",
+            "size": "OS",
+            "color": "Olive",
+            "stock": 12,
+            "price": 5000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-rubber-duck-tee",
+        "name": "Rubber Duck Debug Tee",
+        "slug": "rubber-duck-debug-tee",
+        "description": "Talk through every bug while looking suspiciously cool.",
+        "price": 219000,
+        "imageUrl": "/images/mock/rubber-duck-tee.jpg",
+        "categoryName": "T-Shirts",
+        "categorySlug": "t-shirts",
+        "variants": [
+          {
+            "id": "var-rddt-s-yellow",
+            "sku": "RDDT-S-YLW",
+            "size": "S",
+            "color": "Yellow",
+            "stock": 9,
+            "price": 0
+          },
+          {
+            "id": "var-rddt-m-black",
+            "sku": "RDDT-M-BLK",
+            "size": "M",
+            "color": "Black",
+            "stock": 11,
+            "price": 0
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-clean-architecture-shirt",
+        "name": "Clean Architecture Shirt",
+        "slug": "clean-architecture-shirt",
+        "description": "Layered comfort with fewer dependencies and better boundaries.",
+        "price": 259000,
+        "imageUrl": "/images/mock/clean-architecture-shirt.jpg",
+        "categoryName": "T-Shirts",
+        "categorySlug": "t-shirts",
+        "variants": [
+          {
+            "id": "var-cas-m-white",
+            "sku": "CAS-M-WHT",
+            "size": "M",
+            "color": "White",
+            "stock": 7,
+            "price": 0
+          },
+          {
+            "id": "var-cas-l-charcoal",
+            "sku": "CAS-L-CHR",
+            "size": "L",
+            "color": "Charcoal",
+            "stock": 6,
+            "price": 10000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-merge-conflict-joggers",
+        "name": "Merge Conflict Joggers",
+        "slug": "merge-conflict-joggers",
+        "description": "Two styles enter, one comfy branch leaves.",
+        "price": 329000,
+        "imageUrl": "/images/mock/merge-conflict-joggers.jpg",
+        "categoryName": "Bottoms",
+        "categorySlug": "bottoms",
+        "variants": [
+          {
+            "id": "var-mcj-m-graphite",
+            "sku": "MCJ-M-GRP",
+            "size": "M",
+            "color": "Graphite",
+            "stock": 5,
+            "price": 0
+          },
+          {
+            "id": "var-mcj-l-black",
+            "sku": "MCJ-L-BLK",
+            "size": "L",
+            "color": "Black",
+            "stock": 4,
+            "price": 5000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-late-night-deploy-bag",
+        "name": "Late Night Deploy Sling Bag",
+        "slug": "late-night-deploy-sling-bag",
+        "description": "Holds charger, snacks, and emotional support sticky notes.",
+        "price": 279000,
+        "imageUrl": "/images/mock/deploy-sling-bag.jpg",
+        "categoryName": "Accessories",
+        "categorySlug": "accessories",
+        "variants": [
+          {
+            "id": "var-lndb-os-black",
+            "sku": "LNDB-OS-BLK",
+            "size": "OS",
+            "color": "Black",
+            "stock": 9,
+            "price": 0
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-semicolon-socks",
+        "name": "Semicolon Socks",
+        "slug": "semicolon-socks",
+        "description": "Tiny punctuation for your most important runtime: your feet.",
+        "price": 99000,
+        "imageUrl": "/images/mock/semicolon-socks.jpg",
+        "categoryName": "Accessories",
+        "categorySlug": "accessories",
+        "variants": [
+          {
+            "id": "var-ss-os-black",
+            "sku": "SS-OS-BLK",
+            "size": "OS",
+            "color": "Black",
+            "stock": 30,
+            "price": 0
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-dark-mode-overshirt",
+        "name": "Dark Mode Overshirt",
+        "slug": "dark-mode-overshirt",
+        "description": "For developers who ship best after sunset.",
+        "price": 459000,
+        "imageUrl": "/images/mock/dark-mode-overshirt.jpg",
+        "categoryName": "Outerwear",
+        "categorySlug": "outerwear",
+        "variants": [
+          {
+            "id": "var-dmo-m-black",
+            "sku": "DMO-M-BLK",
+            "size": "M",
+            "color": "Black",
+            "stock": 3,
+            "price": 0
+          },
+          {
+            "id": "var-dmo-l-indigo",
+            "sku": "DMO-L-IND",
+            "size": "L",
+            "color": "Indigo",
+            "stock": 4,
+            "price": 15000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-daily-standup-shorts",
+        "name": "Daily Standup Shorts",
+        "slug": "daily-standup-shorts",
+        "description": "Comfort-first bottoms for meetings that could be a message.",
+        "price": 239000,
+        "imageUrl": "/images/mock/daily-standup-shorts.jpg",
+        "categoryName": "Bottoms",
+        "categorySlug": "bottoms",
+        "variants": [
+          {
+            "id": "var-dss-m-sand",
+            "sku": "DSS-M-SND",
+            "size": "M",
+            "color": "Sand",
+            "stock": 11,
+            "price": 0
+          },
+          {
+            "id": "var-dss-l-black",
+            "sku": "DSS-L-BLK",
+            "size": "L",
+            "color": "Black",
+            "stock": 8,
+            "price": 5000
+          }
+        ]
+      }
+    },
+    {
+      "message": "product fetched",
+      "data": {
+        "id": "prod-404-beanie",
+        "name": "404 Beanie Not Found",
+        "slug": "404-beanie-not-found",
+        "description": "If your hairstyle fails to compile, this is your fallback.",
+        "price": 169000,
+        "imageUrl": "/images/mock/404-beanie.jpg",
+        "categoryName": "Accessories",
+        "categorySlug": "accessories",
+        "variants": [
+          {
+            "id": "var-404-os-black",
+            "sku": "404-OS-BLK",
+            "size": "OS",
+            "color": "Black",
+            "stock": 14,
+            "price": 0
+          }
+        ]
+      }
+    }
+  ]
+}
