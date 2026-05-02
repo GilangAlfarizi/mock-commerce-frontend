@@ -23,9 +23,10 @@ export default function PublicFooter() {
 						Wear Your Stack
 					</h2>
 					<p className="max-w-2xl text-sm leading-7 text-primary-foreground/80 sm:text-base">
-						Mock Commerce is a playground for developers who want outfits as relatable
-						as their commit history. Clean design, nerdy copy, and enough comfort to
-						survive stand-up, code review, and production hotfixes.
+						Mock Commerce is a playground for developers who want outfits as
+						relatable as their commit history. Clean design, nerdy copy, and
+						enough comfort to survive stand-up, code review, and production
+						hotfixes.
 					</p>
 					<div className="flex items-center justify-center gap-3">
 						{socialLinks.map((social) => {
@@ -47,8 +48,10 @@ export default function PublicFooter() {
 			<div className="border-t border-primary-foreground/30 bg-primary/90">
 				<div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-3 px-4 py-5 text-sm text-primary-foreground/80 sm:flex-row sm:px-6 lg:px-8">
 					<p>
-						Copyright {new Date().getFullYear()}{" "}
-						<span className="font-semibold text-primary-foreground">Mock Commerce</span>
+						Copyright 2026{" "}
+						<span className="font-semibold text-primary-foreground">
+							Mock Commerce
+						</span>
 					</p>
 					<nav className="flex items-center gap-4">
 						{footerLinks.map((link) => (

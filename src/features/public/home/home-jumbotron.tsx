@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HomeJumbotron() {
 	return (
-		<section className="grid gap-6 border border-black bg-[var(--cream)] p-6 text-[var(--cream-foreground)] md:grid-cols-2 md:p-8">
+		<section className="grid gap-6 border border-black bg-cream p-6 text-cream-foreground md:grid-cols-2 md:p-8">
 			<div className="space-y-5">
 				<p className="inline-flex items-center gap-2 border border-black bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground">
 					<Sparkles className="size-3.5" />
@@ -29,14 +29,14 @@ export default function HomeJumbotron() {
 					</Button>
 					<Button
 						variant="outline"
-						className="rounded-none border-black bg-[var(--surface)] hover:bg-accent"
+						className="rounded-none border-black bg-surface hover:bg-accent"
 						asChild>
 						<Link href="/products">Browse highlights</Link>
 					</Button>
 				</div>
 			</div>
 			<div className="border border-black bg-accent p-4">
-				<div className="border border-black bg-[var(--surface)] p-4">
+				<div className="border border-black bg-surface p-4">
 					<p className="font-mono text-xs text-muted-foreground">
 						$ npm run outfit -- --mode confident
 					</p>

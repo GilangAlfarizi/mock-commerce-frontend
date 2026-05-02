@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { QueryClientProviderWrapper } from "@/components/providers/query-client-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -39,7 +40,9 @@ export default function RootLayout({
 				jetbrainsMono.variable,
 			)}>
 			<body className="min-h-full flex flex-col font-sans">
-				<TooltipProvider>{children}</TooltipProvider>
+				<QueryClientProviderWrapper>
+					<TooltipProvider>{children}</TooltipProvider>
+				</QueryClientProviderWrapper>
 			</body>
 		</html>
 	);

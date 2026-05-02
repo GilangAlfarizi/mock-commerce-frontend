@@ -18,7 +18,7 @@ const productTraits = [
 
 export default function HomeBrandValue() {
 	return (
-		<section className="space-y-4 border border-black bg-[var(--cream)] p-5 text-[var(--cream-foreground)] md:p-6">
+		<section className="space-y-4 border border-black bg-cream p-5 text-cream-foreground md:p-6">
 			<div className="flex items-end justify-between gap-4">
 				<div>
 					<h2 className="font-mono text-2xl font-semibold tracking-tight">
@@ -33,7 +33,7 @@ export default function HomeBrandValue() {
 				{productTraits.map((trait) => (
 					<article
 						key={trait.title}
-						className="border border-black bg-[var(--surface)] p-4 md:p-5">
+						className="border border-black bg-surface p-4 md:p-5">
 						<h3 className="font-mono text-lg font-semibold">{trait.title}</h3>
 						<p className="mt-2 text-sm text-muted-foreground">
 							{trait.description}
