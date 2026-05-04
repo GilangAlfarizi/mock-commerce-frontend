@@ -1,6 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Product scope, phased roadmap, and API alignment with the backend are documented in [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md).
+Product scope, phased roadmap, API alignment, and agent checkpoints are documented in [docs/PROGRESS.md](docs/PROGRESS.md).
+
+**Internal admin:** open [`/login`](http://localhost:3000/login) after `npm run dev`. Set `NEXT_PUBLIC_API_URL` to your MockCommerce API base (e.g. `http://localhost:8080`). Categories CRUD lives at `/admin/categories`; other admin menus are stubs until implemented.
 
 ## Getting Started
 

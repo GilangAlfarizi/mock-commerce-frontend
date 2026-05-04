@@ -1,9 +1,5 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export default function InternalLayout({ children }: { children: ReactNode }) {
-	return (
-		<>
-			<main>{children}</main>
-		</>
-	);
+	return <div className="min-h-screen flex flex-col bg-background">{children}</div>;
 }
