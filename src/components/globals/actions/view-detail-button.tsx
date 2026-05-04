@@ -5,13 +5,26 @@ import Link from "next/link";
 import { Eye } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-export type ViewDetailButtonProps = Omit<React.ComponentProps<typeof Button>, "children" | "asChild"> & {
+export type ViewDetailButtonProps = Omit<
+	React.ComponentProps<typeof Button>,
+	"children" | "asChild"
+> & {
 	href?: string;
 };
 
-function ViewDetailButton({ href, onClick, disabled, className, ...props }: ViewDetailButtonProps) {
+function ViewDetailButton({
+	href,
+	onClick,
+	disabled,
+	className,
+	...props
+}: ViewDetailButtonProps) {
 	const content = (
 		<>
 			<Eye className="size-4" />
@@ -20,14 +33,21 @@ function ViewDetailButton({ href, onClick, disabled, className, ...props }: View
 	);
 
 	const trigger = href ? (
-		<Button type="button" size="icon-sm" variant="ghost" className={className} disabled={disabled} asChild {...props}>
+		<Button
+			type="button"
+			size="icon-sm"
+			variant="outline"
+			className={className}
+			disabled={disabled}
+			asChild
+			{...props}>
 			<Link href={href}>{content}</Link>
 		</Button>
 	) : (
 		<Button
 			type="button"
 			size="icon-sm"
-			variant="ghost"
+			variant="outline"
 			className={className}
 			disabled={disabled}
 			onClick={onClick}

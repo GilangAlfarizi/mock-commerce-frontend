@@ -3,9 +3,16 @@
 import { Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-export type DeleteButtonProps = Omit<React.ComponentProps<typeof Button>, "children" | "variant">;
+export type DeleteButtonProps = Omit<
+	React.ComponentProps<typeof Button>,
+	"children" | "variant"
+>;
 
 function DeleteButton(props: DeleteButtonProps) {
 	return (

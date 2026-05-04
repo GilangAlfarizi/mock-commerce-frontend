@@ -58,7 +58,7 @@ function DataTable<TData>({
 			...columns,
 			{
 				id: "__actions",
-				header: <span className="sr-only">Actions</span>,
+				header: <span>Actions</span>,
 				align: "right" as const,
 				headerClassName: "w-[1%] whitespace-nowrap",
 				cellClassName: "text-right",
@@ -81,16 +81,18 @@ function DataTable<TData>({
 
 	return (
 		<div className="relative w-full overflow-x-auto rounded-2xl border border-border">
-			<table className="w-full min-w-[32rem] caption-bottom text-sm">
-				{caption ? <caption className="mt-2 text-muted-foreground">{caption}</caption> : null}
+			<table className="w-full min-w-lg caption-bottom text-sm">
+				{caption ? (
+					<caption className="mt-2 text-muted-foreground">{caption}</caption>
+				) : null}
 				<thead>
-					<tr className="border-b border-border bg-muted/40">
+					<tr className="border-b border-border bg-primary">
 						{allColumns.map((col) => (
 							<th
 								key={col.id}
 								scope="col"
 								className={cn(
-									"h-10 px-3 text-left align-middle font-medium text-muted-foreground first:pl-4 last:pr-4",
+									"h-10 px-3 text-left align-middle font-medium text-surface first:pl-4 last:pr-4",
 									alignClass(col.align),
 									col.headerClassName,
 								)}>
@@ -102,7 +104,9 @@ function DataTable<TData>({
 				<tbody>
 					{isLoading ? (
 						Array.from({ length: 5 }).map((_, i) => (
-							<tr key={`sk-${i}`} className="border-b border-border/80 last:border-0">
+							<tr
+								key={`sk-${i}`}
+								className="border-b border-border/80 last:border-0">
 								{allColumns.map((col) => (
 									<td key={col.id} className="px-3 py-2.5 first:pl-4 last:pr-4">
 										<Skeleton className="h-6 w-full" />
@@ -114,7 +118,9 @@ function DataTable<TData>({
 						<tr>
 							<td colSpan={allColumns.length} className="p-6">
 								{emptyState ?? (
-									<p className="text-center text-sm text-muted-foreground">No rows.</p>
+									<p className="text-center text-sm text-muted-foreground">
+										No rows.
+									</p>
 								)}
 							</td>
 						</tr>

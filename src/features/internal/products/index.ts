@@ -1,3 +1,3 @@
-/** Internal products UI — implement when wiring admin products. */
-
-export {};
+export { ProductsView } from "./products-view";
+export { productColumns } from "./product-columns";
+export { ProductDetailView } from "./product-detail-view";

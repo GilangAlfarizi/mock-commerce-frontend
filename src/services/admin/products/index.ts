@@ -1,3 +1,7 @@
-/** Admin products service — implement when wiring `/admin/products`. */
-
-export {};
+export {
+	listAdminProducts,
+	getAdminProduct,
+	createAdminProduct,
+	updateAdminProduct,
+	deleteAdminProduct,
+} from "./product.service";

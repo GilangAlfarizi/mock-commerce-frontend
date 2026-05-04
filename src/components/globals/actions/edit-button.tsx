@@ -5,13 +5,26 @@ import Link from "next/link";
 import { Pencil } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-export type EditButtonProps = Omit<React.ComponentProps<typeof Button>, "children" | "asChild"> & {
+export type EditButtonProps = Omit<
+	React.ComponentProps<typeof Button>,
+	"children" | "asChild"
+> & {
 	href?: string;
 };
 
-function EditButton({ href, onClick, disabled, className, ...props }: EditButtonProps) {
+function EditButton({
+	href,
+	onClick,
+	disabled,
+	className,
+	...props
+}: EditButtonProps) {
 	const content = (
 		<>
 			<Pencil className="size-4" />
@@ -20,7 +33,14 @@ function EditButton({ href, onClick, disabled, className, ...props }: EditButton
 	);
 
 	const trigger = href ? (
-		<Button type="button" size="icon-sm" variant="outline" className={className} disabled={disabled} asChild {...props}>
+		<Button
+			type="button"
+			size="icon-sm"
+			variant="outline"
+			className={className}
+			disabled={disabled}
+			asChild
+			{...props}>
 			<Link href={href}>{content}</Link>
 		</Button>
 	) : (

@@ -10,9 +10,20 @@ export {
 export { useAuthSession, type AuthSessionState } from "./use-auth-session";
 export { useLoginMutation } from "./use-login-mutation";
 export { useLogout } from "./use-logout";
-export { adminCategoriesQueryKey, useAdminCategories } from "./use-admin-categories";
+export {
+	adminCategoriesQueryKey,
+	useAdminCategories,
+} from "./use-admin-categories";
 export {
 	useCreateAdminCategory,
 	useDeleteAdminCategory,
 	useUpdateAdminCategory,
 } from "./use-admin-category-mutations";
+
+export { useAdminProducts } from "./use-admin-products";
+export { adminProductQueryKey, useAdminProduct } from "./use-admin-product";
+export {
+	useCreateAdminProduct,
+	useUpdateAdminProduct,
+	useDeleteAdminProduct,
+} from "./use-admin-product-mutations";

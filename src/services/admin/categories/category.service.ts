@@ -19,7 +19,9 @@ export async function getAdminCategory(id: string): Promise<CategoryResponse> {
 	return data;
 }
 
-export async function createAdminCategory(input: CategoryInput): Promise<CategoryResponse> {
+export async function createAdminCategory(
+	input: CategoryInput,
+): Promise<CategoryResponse> {
 	const { data } = await api.post<CategoryResponse>("/admin/categories", input);
 	return data;
 }

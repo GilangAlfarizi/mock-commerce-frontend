@@ -45,9 +45,12 @@ function CategoryFormBody({
 	return (
 		<form onSubmit={handleSubmit}>
 			<DialogHeader>
-				<DialogTitle>{mode === "create" ? "New category" : "Edit category"}</DialogTitle>
+				<DialogTitle>
+					{mode === "create" ? "New category" : "Edit category"}
+				</DialogTitle>
 				<DialogDescription>
-					Slug is generated on the server when you save. You only need a display name.
+					Slug is generated on the server when you save. You only need a display
+					name.
 				</DialogDescription>
 			</DialogHeader>
 			<div className="grid gap-2 py-2">
@@ -69,7 +72,11 @@ function CategoryFormBody({
 				) : null}
 			</div>
 			<DialogFooter>
-				<Button type="button" variant="outline" disabled={isPending} onClick={onCancel}>
+				<Button
+					type="button"
+					variant="outline"
+					disabled={isPending}
+					onClick={onCancel}>
 					Cancel
 				</Button>
 				<Button type="submit" disabled={isPending}>

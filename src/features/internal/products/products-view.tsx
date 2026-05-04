@@ -1,8 +1,5 @@
 "use client";
 
-import * as React from "react";
-import { FolderTree } from "lucide-react";
-
 import {
 	ConfirmDialog,
 	CreateButton,
@@ -12,31 +9,37 @@ import {
 	EmptyState,
 	PageHeader,
 	RowActions,
+	ViewDetailButton,
 } from "@/components/globals";
 import {
 	useAdminCategories,
-	useCreateAdminCategory,
-	useDeleteAdminCategory,
-	useUpdateAdminCategory,
+	useAdminProducts,
+	useCreateAdminProduct,
+	useDeleteAdminProduct,
+	useUpdateAdminProduct,
 } from "@/hooks";
-import type { AdminCategoryDTO } from "@/types/admin/category";
+import { AdminProductDTO, ProductInput } from "@/types/admin/product";
+import React from "react";
+import { FolderTree } from "lucide-react";
+import { productColumns } from "./product-columns";
+import { ProductFormDialog } from "./product-form-dialog";
 
-import { categoryColumns } from "./category-columns";
-import { CategoryFormDialog } from "./category-form-dialog";
-
-function CategoriesView() {
-	const { data, isPending, error } = useAdminCategories();
-	const createMutation = useCreateAdminCategory();
-	const updateMutation = useUpdateAdminCategory();
-	const deleteMutation = useDeleteAdminCategory();
+function ProductsView() {
+	const { data, isPending, error } = useAdminProducts();
+	const { data: categoriesData, isPending: categoriesPending } =
+		useAdminCategories();
+	//hooks
+	const createMutation = useCreateAdminProduct();
+	const updateMutation = useUpdateAdminProduct();
+	const deleteMutation = useDeleteAdminProduct();
 
 	const [formOpen, setFormOpen] = React.useState(false);
 	const [formMode, setFormMode] = React.useState<"create" | "edit">("create");
-	const [editing, setEditing] = React.useState<AdminCategoryDTO | null>(null);
+	const [editing, setEditing] = React.useState<AdminProductDTO | null>(null);
 
 	const [deleteOpen, setDeleteOpen] = React.useState(false);
 	const [deleteTarget, setDeleteTarget] =
-		React.useState<AdminCategoryDTO | null>(null);
+		React.useState<AdminProductDTO | null>(null);
 
 	const activeMutation =
 		formMode === "create" ? createMutation : updateMutation;
@@ -50,7 +53,7 @@ function CategoriesView() {
 		updateMutation.reset();
 	};
 
-	const openEdit = (row: AdminCategoryDTO) => {
+	const openEdit = (row: AdminProductDTO) => {
 		setFormMode("edit");
 		setEditing(row);
 		setFormOpen(true);
@@ -58,66 +61,65 @@ function CategoriesView() {
 		updateMutation.reset();
 	};
 
-	const handleFormSubmit = (name: string) => {
+	const openDelete = (row: AdminProductDTO) => {
+		setDeleteTarget(row);
+		setDeleteOpen(true);
+	};
+
+	const handleFormSubmit = (data: ProductInput) => {
 		if (formMode === "create") {
-			createMutation.mutate(
-				{ name },
-				{
-					onSuccess: () => {
-						setFormOpen(false);
-						createMutation.reset();
-					},
+			createMutation.mutate(data, {
+				onSuccess: () => {
+					setFormOpen(false);
+					setEditing(null);
+					updateMutation.reset();
 				},
-			);
+			});
 		} else if (editing) {
 			updateMutation.mutate(
-				{ id: editing.id, input: { name } },
+				{ id: editing.id, input: data },
 				{
 					onSuccess: () => {
 						setFormOpen(false);
 						setEditing(null);
-						updateMutation.reset();
+						createMutation.reset();
 					},
 				},
 			);
 		}
 	};
 
-	const openDelete = (row: AdminCategoryDTO) => {
-		setDeleteTarget(row);
-		setDeleteOpen(true);
-	};
-
 	return (
 		<div>
 			<PageHeader
-				title="Categories"
-				description="Manage catalog categories. Slugs are generated automatically on the server."
-				actions={<CreateButton label="New category" onClick={openCreate} />}
+				title="Products"
+				description="Manage products. Ensure product data correct and sync with variants"
+				actions={<CreateButton label="New Product" onClick={openCreate} />}
 			/>
 
 			<DataTable
 				data={data?.data}
-				columns={categoryColumns}
+				columns={productColumns}
 				getRowKey={(row) => row.id}
 				isLoading={isPending}
 				error={error}
 				emptyState={
 					<EmptyState
 						icon={FolderTree}
-						title="No categories yet"
-						description="Create your first category to organize products in the storefront."
+						title="No products yet"
+						description="Create your first product to organize variants in the storefront."
 					/>
 				}
 				rowActions={(row) => (
 					<RowActions>
+						<ViewDetailButton href={`/admin/products/${row.id}`} />
 						<EditButton onClick={() => openEdit(row)} />
 						<DeleteButton onClick={() => openDelete(row)} />
 					</RowActions>
 				)}
 			/>
 
-			<CategoryFormDialog
+			<ProductFormDialog
 				open={formOpen}
 				onOpenChange={(open) => {
 					setFormOpen(open);
@@ -129,6 +131,8 @@ function CategoriesView() {
 				}}
 				mode={formMode}
 				initial={editing}
+				categories={categoriesData?.data ?? []}
+				categoriesLoading={categoriesPending}
 				isPending={activeMutation.isPending}
 				error={formError}
 				onSubmit={handleFormSubmit}
@@ -140,7 +144,7 @@ function CategoriesView() {
 					setDeleteOpen(open);
 					if (!open) setDeleteTarget(null);
 				}}
-				title="Delete category?"
+				title="Delete product?"
 				description={
 					deleteTarget
 						? `This will remove “${deleteTarget.name}” (${deleteTarget.slug}). Products referencing it may be affected.`
@@ -159,4 +163,4 @@ function CategoriesView() {
 	);
 }
 
-export { CategoriesView };
+export { ProductsView };
