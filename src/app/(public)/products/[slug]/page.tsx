@@ -1,5 +1,5 @@
+import ProductAddToCart from "@/features/public/components/product-add-to-cart";
 import { getProductBySlug } from "@/services/products";
-import { Button } from "@/components/ui/button";
 import type { PublicProductDetail } from "@/types/product";
 import { isAxiosError } from "axios";
 import { ArrowLeft, ShieldCheck, Truck } from "lucide-react";
@@ -95,17 +95,7 @@ export default async function ProductDetailPage({
 						</div>
 					</div>
 
-					<div className="flex flex-wrap gap-2">
-						<Button className="rounded-none border border-black">
-							Add to cart (soon)
-						</Button>
-						<Button
-							variant="outline"
-							className="rounded-none border-black bg-surface"
-							asChild>
-							<Link href="/products">Continue browsing</Link>
-						</Button>
-					</div>
+					<ProductAddToCart product={product} />
 				</div>
 			</section>
 

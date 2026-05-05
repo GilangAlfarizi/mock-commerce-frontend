@@ -1,28 +1,36 @@
-export default function CartPage() {
+import CartCheckoutClient from "@/features/public/components/cart/cart-checkout-client";
+import CartLinesClient from "@/features/public/components/cart/cart-lines-client";
+import { cartTotals, enrichCartLines } from "@/lib/cart/enrich-cart";
+import { getCartLines } from "@/lib/cart/get-cart";
+import { formatIdr } from "@/lib/format-currency";
+
+export const metadata = {
+	title: "Cart | Mock Commerce",
+};
+
+export default async function CartPage() {
+	const rawLines = await getCartLines();
+	const lines = await enrichCartLines(rawLines);
+	const { subtotal, count } = cartTotals(lines);
+	const validLines = lines.filter((l) => l.valid);
+
 	return (
-		<div className="space-y-12">
-			<section className="space-y-4 border border-black bg-cream p-5 text-cream-foreground md:p-6">
-				<div className="flex">
-					<div className="gap-4">
-						<img
-							src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"
-							alt="test"
-						/>
-					</div>
-					<div className="p-4 bg-surface w-full border border-black space-y-2">
-						<h1>Title Test</h1>
-						<p className="inline-flex border border-black bg-cream px-2 py-0.5 text-xs">
-							Category
-						</p>
-					</div>
-				</div>
-			</section>
-			{/* <div className="mx-auto w-full px-4 py-8 sm:px-6">
-				<h1 className="text-2xl font-semibold tracking-tight">Cart</h1>
-				<p className="mt-2 text-sm text-muted-foreground">
-					Checkout flow is deferred until the order backend is ready.
+		<div className="space-y-10">
+			<div className="space-y-2">
+				<h1 className="font-mono text-3xl font-semibold tracking-tight">Cart</h1>
+				<p className="text-sm text-muted-foreground">
+					{count === 0
+						? "No items yet."
+						: `${count} item(s) — ${formatIdr(subtotal)} before shipping.`}
 				</p>
-			</div> */}
+			</div>
+
+			<section className="space-y-3">
+				<h2 className="sr-only">Items</h2>
+				<CartLinesClient lines={lines} />
+			</section>
+
+			<CartCheckoutClient validLines={validLines} subtotal={subtotal} />
 		</div>
 	);
 }

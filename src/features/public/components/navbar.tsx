@@ -1,13 +1,15 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+import type { EnrichedCartLine } from "@/types/cart";
+import { formatIdr } from "@/lib/format-currency";
 import { DollarSign, House, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useId, useState } from "react";
@@ -18,9 +20,20 @@ const outlineBrutal = "rounded-none border-black bg-cream";
 const searchInputClass =
 	"h-9 rounded-none border-black bg-surface pl-9 font-sans focus-visible:border-black focus-visible:ring-1 focus-visible:ring-ring/40";
 
-export default function HomeNavbar() {
+type HomeNavbarProps = {
+	cartLines?: EnrichedCartLine[];
+	totalQuantity?: number;
+	subtotal?: number;
+};
+
+export default function HomeNavbar({
+	cartLines = [],
+	totalQuantity = 0,
+	subtotal = 0,
+}: HomeNavbarProps) {
 	const [showMobileSearch, setShowMobileSearch] = useState(false);
 	const mobileSearchId = useId();
+	const previewLines = cartLines.filter((l) => l.valid).slice(0, 8);
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-black bg-primary text-cream-foreground">
@@ -65,11 +78,84 @@ export default function HomeNavbar() {
 				</div>
 
 				<div className="shrink-0">
-					<IconLinkButton
-						href="/cart"
-						icon={ShoppingCart}
-						tooltip="Your Cart"
-					/>
+					<Popover>
+							<PopoverTrigger asChild>
+								<Button
+									type="button"
+									variant="outline"
+									className={`relative ${outlineBrutal}`}
+									aria-label="Shopping cart overview">
+									<ShoppingCart className="size-4" />
+									{totalQuantity > 0 ? (
+										<Badge
+											variant="secondary"
+											className="absolute -right-2 -top-2 min-w-5 border border-black px-1 font-mono text-[10px]">
+											{totalQuantity > 99 ? "99+" : totalQuantity}
+										</Badge>
+									) : null}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-80 p-0" align="end">
+								<div className="border-b border-black px-3 py-2">
+									<p className="font-mono text-sm font-semibold">Your cart</p>
+									<p className="text-xs text-muted-foreground">
+										{totalQuantity === 0
+											? "No items yet"
+											: `${totalQuantity} item(s) · ${formatIdr(subtotal)}`}
+									</p>
+								</div>
+								{previewLines.length > 0 ? (
+									<ul className="max-h-64 overflow-y-auto border-b border-black">
+										{previewLines.map((line) => (
+											<li
+												key={`${line.slug}-${line.variantId ?? ""}`}
+												className="flex gap-2 border-b border-black px-3 py-2 text-xs last:border-0">
+												{line.imageUrl ? (
+													<img
+														src={line.imageUrl}
+														alt=""
+														className="size-10 shrink-0 border border-black object-cover"
+													/>
+												) : (
+													<div className="size-10 shrink-0 border border-black bg-surface" />
+												)}
+												<div className="min-w-0 flex-1">
+													<p className="truncate font-medium text-foreground">
+														{line.name}
+													</p>
+													{line.variantLabel ? (
+														<p className="truncate text-muted-foreground">
+															{line.variantLabel}
+														</p>
+													) : null}
+													<p className="font-mono text-foreground">
+														×{line.quantity} · {formatIdr(line.lineTotal)}
+													</p>
+												</div>
+											</li>
+										))}
+									</ul>
+								) : (
+									<p className="px-3 py-6 text-center text-xs text-muted-foreground">
+										Add products from the catalog.
+									</p>
+								)}
+								<div className="flex flex-col gap-2 p-3">
+									<Button
+										asChild
+										variant="default"
+										className="w-full rounded-none border border-black">
+										<Link href="/cart">View cart</Link>
+									</Button>
+									<Button
+										asChild
+										variant="outline"
+										className="w-full rounded-none border-black bg-surface">
+										<Link href="/cart#checkout">Checkout</Link>
+									</Button>
+								</div>
+							</PopoverContent>
+						</Popover>
 				</div>
 			</div>
 

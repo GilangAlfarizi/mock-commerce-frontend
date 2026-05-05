@@ -822,7 +822,7 @@
 			"get": {
 				"description": "All categories, ordered by name",
 				"produces": ["application/json"],
-				"tags": ["public-categories"],
+				"tags": ["public"],
 				"summary": "List categories (public)",
 				"responses": {
 					"200": {
@@ -844,7 +844,7 @@
 			"get": {
 				"description": "Category by slug",
 				"produces": ["application/json"],
-				"tags": ["public-categories"],
+				"tags": ["public"],
 				"summary": "Get category by slug (public)",
 				"parameters": [
 					{
@@ -864,6 +864,46 @@
 					},
 					"404": {
 						"description": "Not Found",
+						"schema": {
+							"$ref": "#/definitions/dto.APIResponse"
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/dto.APIResponse"
+						}
+					}
+				}
+			}
+		},
+		"/checkout": {
+			"post": {
+				"description": "Create a new order and order_items",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"tags": ["public"],
+				"summary": "Checkout Order",
+				"parameters": [
+					{
+						"description": "fill customer details and receive midtrans token",
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/dto.PublicOrderInput"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Created",
+						"schema": {
+							"$ref": "#/definitions/dto.PublicCheckoutResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
 						"schema": {
 							"$ref": "#/definitions/dto.APIResponse"
 						}
@@ -915,7 +955,7 @@
 			"get": {
 				"description": "Paginated active products. pageSize default 20 max 50. sort: newest, price_asc, price_desc. categorySlugs: OR filter, comma or repeated",
 				"produces": ["application/json"],
-				"tags": ["public-products"],
+				"tags": ["public"],
 				"summary": "List products (public)",
 				"parameters": [
 					{
@@ -963,7 +1003,7 @@
 			"get": {
 				"description": "Active product detail by public slug; includes variants",
 				"produces": ["application/json"],
-				"tags": ["public-products"],
+				"tags": ["public"],
 				"summary": "Get product by slug (public)",
 				"parameters": [
 					{
@@ -1023,6 +1063,46 @@
 					},
 					"409": {
 						"description": "Conflict",
+						"schema": {
+							"$ref": "#/definitions/dto.APIResponse"
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/dto.APIResponse"
+						}
+					}
+				}
+			}
+		},
+		"/webhooks/midtrans": {
+			"post": {
+				"description": "Update Order Status after finalize payment",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"tags": ["public"],
+				"summary": "Midtrans Webhook Notification",
+				"parameters": [
+					{
+						"description": "fill customer details and receive midtrans token",
+						"name": "request",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Created",
+						"schema": {
+							"$ref": "#/definitions/dto.WebhookMidtransResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
 						"schema": {
 							"$ref": "#/definitions/dto.APIResponse"
 						}
@@ -1165,6 +1245,19 @@
 				},
 				"password": {
 					"type": "string"
+				}
+			}
+		},
+		"dto.MidtransCheckout": {
+			"type": "object",
+			"properties": {
+				"redirect_url": {
+					"type": "string",
+					"example": "midtrans-snap.url"
+				},
+				"token": {
+					"type": "string",
+					"example": "generated-midtrans-uuid"
 				}
 			}
 		},
@@ -1403,6 +1496,70 @@
 				}
 			}
 		},
+		"dto.PublicCheckoutResponse": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"$ref": "#/definitions/dto.MidtransCheckout"
+				},
+				"message": {
+					"type": "string",
+					"example": "order created"
+				}
+			}
+		},
+		"dto.PublicOrderInput": {
+			"type": "object",
+			"required": [
+				"customerEmail",
+				"customerName",
+				"items",
+				"shippingAddress",
+				"shippingCity",
+				"shippingPostalCode"
+			],
+			"properties": {
+				"customerEmail": {
+					"type": "string"
+				},
+				"customerName": {
+					"type": "string"
+				},
+				"customerPhone": {
+					"type": "string"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/dto.PublicOrderItemInput"
+					}
+				},
+				"shippingAddress": {
+					"type": "string"
+				},
+				"shippingCity": {
+					"type": "string"
+				},
+				"shippingPostalCode": {
+					"type": "string"
+				}
+			}
+		},
+		"dto.PublicOrderItemInput": {
+			"type": "object",
+			"required": ["productId", "quantity"],
+			"properties": {
+				"productId": {
+					"type": "string"
+				},
+				"quantity": {
+					"type": "integer"
+				},
+				"variantId": {
+					"type": "string"
+				}
+			}
+		},
 		"dto.PublicProductDTO": {
 			"type": "object",
 			"properties": {
@@ -1579,6 +1736,15 @@
 				"role": {
 					"type": "string",
 					"example": "customer"
+				}
+			}
+		},
+		"dto.WebhookMidtransResponse": {
+			"type": "object",
+			"properties": {
+				"message": {
+					"type": "string",
+					"example": "webhook processed"
 				}
 			}
 		}
