@@ -26,4 +26,13 @@ export {
 	useCreateAdminProduct,
 	useUpdateAdminProduct,
 	useDeleteAdminProduct,
+	usePublishAdminProduct,
 } from "./use-admin-product-mutations";
+
+export {
+	adminVariantsQueryKey,
+	useAdminVariants,
+	useCreateAdminVariant,
+	useUpdateAdminVariant,
+	useDeleteAdminVariant,
+} from "./use-admin-variants";

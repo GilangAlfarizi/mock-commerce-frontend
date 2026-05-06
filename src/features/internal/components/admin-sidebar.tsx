@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-	FolderTree,
-	LayoutDashboard,
-	Package,
-	Receipt,
-	Shapes,
-} from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,12 +11,7 @@ import { cn } from "@/lib/utils";
 import { useAuthSession } from "@/hooks/use-auth-session";
 import { useLogout } from "@/hooks/use-logout";
 
-const nav = [
-	{ href: "/admin/categories", label: "Categories", icon: FolderTree },
-	{ href: "/admin/products", label: "Products", icon: Package },
-	{ href: "/admin/variants", label: "Variants", icon: Shapes },
-	{ href: "/admin/orders", label: "Orders", icon: Receipt },
-] as const;
+import { adminNavItems, isAdminNavItemActive } from "./admin-nav-items";
 
 function AdminSidebar() {
 	const pathname = usePathname();
@@ -30,14 +19,14 @@ function AdminSidebar() {
 	const logout = useLogout();
 
 	return (
-		<aside className="sticky top-0 flex h-screen w-56 shrink-0 flex-col border-r border-border bg-muted/30">
+		<aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-border bg-muted/30 md:flex">
 			<div className="flex items-center gap-2 px-4 py-4">
 				<LayoutDashboard className="size-5 text-muted-foreground" aria-hidden />
 				<span className="text-sm font-semibold">Admin</span>
 			</div>
 			<nav className="flex flex-1 flex-col gap-0.5 px-2">
-				{nav.map(({ href, label, icon: Icon }) => {
-					const active = pathname === href || pathname.startsWith(`${href}/`);
+				{adminNavItems.map(({ href, label, icon: Icon }) => {
+					const active = isAdminNavItemActive(pathname ?? "", href);
 					return (
 						<Link
 							key={href}

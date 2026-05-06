@@ -1,1752 +1,1987 @@
 {
-	"swagger": "2.0",
-	"info": {
-		"description": "This is a sample server.",
-		"title": "MockCommerce API",
-		"contact": {},
-		"version": "1.0"
-	},
-	"host": "localhost:8080",
-	"basePath": "/",
-	"paths": {
-		"/admin/categories": {
-			"get": {
-				"description": "Get all categories (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-categories"],
-				"summary": "List categories",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.CategoryListResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"post": {
-				"description": "Create a new category (admin only)",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["admin-categories"],
-				"summary": "Create category",
-				"parameters": [
-					{
-						"description": "Name only; slug is auto-generated",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.CategoryInput"
-						}
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"$ref": "#/definitions/dto.CategoryResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/admin/categories/{id}": {
-			"get": {
-				"description": "Get category detail by ID (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-categories"],
-				"summary": "Get category",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Category ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.CategoryResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"put": {
-				"description": "Update category by ID (admin only)",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["admin-categories"],
-				"summary": "Update category",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Category ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					},
-					{
-						"description": "Name only; slug is auto-generated",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.CategoryInput"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.CategoryResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"delete": {
-				"description": "Delete category by ID (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-categories"],
-				"summary": "Delete category",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Category ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.IDResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/admin/products": {
-			"get": {
-				"description": "Get all products (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-products"],
-				"summary": "List products",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductListResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"post": {
-				"description": "Create a new product with one image via multipart/form-data (admin only)",
-				"consumes": ["multipart/form-data"],
-				"produces": ["application/json"],
-				"tags": ["admin-products"],
-				"summary": "Create product",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product name",
-						"name": "name",
-						"in": "formData",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Description",
-						"name": "description",
-						"in": "formData"
-					},
-					{
-						"type": "number",
-						"description": "Price",
-						"name": "price",
-						"in": "formData",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Category UUID",
-						"name": "categoryId",
-						"in": "formData",
-						"required": true
-					},
-					{
-						"type": "boolean",
-						"description": "Active flag (default true)",
-						"name": "isActive",
-						"in": "formData"
-					},
-					{
-						"type": "file",
-						"description": "Product image (JPEG, PNG, GIF, or WebP)",
-						"name": "image",
-						"in": "formData",
-						"required": true
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/admin/products/{id}": {
-			"get": {
-				"description": "Get product detail by ID (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-products"],
-				"summary": "Get product",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"put": {
-				"description": "Update product by ID. Send multipart/form-data; include a new image file to replace the stored image (admin only)",
-				"consumes": ["multipart/form-data"],
-				"produces": ["application/json"],
-				"tags": ["admin-products"],
-				"summary": "Update product",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Product name",
-						"name": "name",
-						"in": "formData",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Description",
-						"name": "description",
-						"in": "formData"
-					},
-					{
-						"type": "number",
-						"description": "Price",
-						"name": "price",
-						"in": "formData",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Category UUID",
-						"name": "categoryId",
-						"in": "formData",
-						"required": true
-					},
-					{
-						"type": "boolean",
-						"description": "Active flag",
-						"name": "isActive",
-						"in": "formData"
-					},
-					{
-						"type": "file",
-						"description": "New image (omit to keep current)",
-						"name": "image",
-						"in": "formData"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"delete": {
-				"description": "Delete product by ID (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-products"],
-				"summary": "Delete product",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.IDResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/admin/products/{id}/variants": {
-			"get": {
-				"description": "List product variants by product ID (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-product-variants"],
-				"summary": "List product variants",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductVariantListResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"post": {
-				"description": "Create product variant by product ID (admin only)",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["admin-product-variants"],
-				"summary": "Create product variant",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					},
-					{
-						"description": "Product variant payload",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.ProductVariantInput"
-						}
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductVariantResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/admin/products/{id}/variants/{variantId}": {
-			"put": {
-				"description": "Update product variant by product and variant ID (admin only)",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["admin-product-variants"],
-				"summary": "Update product variant",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Variant ID",
-						"name": "variantId",
-						"in": "path",
-						"required": true
-					},
-					{
-						"description": "Product variant payload",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.ProductVariantInput"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.ProductVariantResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			},
-			"delete": {
-				"description": "Delete product variant by product and variant ID (admin only)",
-				"produces": ["application/json"],
-				"tags": ["admin-product-variants"],
-				"summary": "Delete product variant",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product ID",
-						"name": "id",
-						"in": "path",
-						"required": true
-					},
-					{
-						"type": "string",
-						"description": "Variant ID",
-						"name": "variantId",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.IDResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"403": {
-						"description": "Forbidden",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/categories": {
-			"get": {
-				"description": "All categories, ordered by name",
-				"produces": ["application/json"],
-				"tags": ["public"],
-				"summary": "List categories (public)",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.PublicCategoryListResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/categories/{slug}": {
-			"get": {
-				"description": "Category by slug",
-				"produces": ["application/json"],
-				"tags": ["public"],
-				"summary": "Get category by slug (public)",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Category slug",
-						"name": "slug",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.PublicCategoryResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/checkout": {
-			"post": {
-				"description": "Create a new order and order_items",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["public"],
-				"summary": "Checkout Order",
-				"parameters": [
-					{
-						"description": "fill customer details and receive midtrans token",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.PublicOrderInput"
-						}
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"$ref": "#/definitions/dto.PublicCheckoutResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/login": {
-			"post": {
-				"description": "Authenticate user and return JWT token",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["auth"],
-				"summary": "Login user",
-				"parameters": [
-					{
-						"description": "Login credentials",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.LoginInput"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.AuthUserResponse"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/products": {
-			"get": {
-				"description": "Paginated active products. pageSize default 20 max 50. sort: newest, price_asc, price_desc. categorySlugs: OR filter, comma or repeated",
-				"produces": ["application/json"],
-				"tags": ["public"],
-				"summary": "List products (public)",
-				"parameters": [
-					{
-						"type": "integer",
-						"description": "Page (default 1)",
-						"name": "page",
-						"in": "query"
-					},
-					{
-						"type": "integer",
-						"description": "Page size (default 20, max 50)",
-						"name": "pageSize",
-						"in": "query"
-					},
-					{
-						"type": "string",
-						"description": "newest, price_asc, price_desc",
-						"name": "sort",
-						"in": "query"
-					},
-					{
-						"type": "string",
-						"description": "Category slugs, comma-separated or repeat param",
-						"name": "categorySlugs",
-						"in": "query"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.PublicProductListResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/products/{slug}": {
-			"get": {
-				"description": "Active product detail by public slug; includes variants",
-				"produces": ["application/json"],
-				"tags": ["public"],
-				"summary": "Get product by slug (public)",
-				"parameters": [
-					{
-						"type": "string",
-						"description": "Product slug",
-						"name": "slug",
-						"in": "path",
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/dto.PublicProductResponse"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/register": {
-			"post": {
-				"description": "Create a new user account",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["auth"],
-				"summary": "Register a new user",
-				"parameters": [
-					{
-						"description": "Registration details",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/dto.RegisterInput"
-						}
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"$ref": "#/definitions/dto.AuthUserResponse"
-						}
-					},
-					"409": {
-						"description": "Conflict",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		},
-		"/webhooks/midtrans": {
-			"post": {
-				"description": "Update Order Status after finalize payment",
-				"consumes": ["application/json"],
-				"produces": ["application/json"],
-				"tags": ["public"],
-				"summary": "Midtrans Webhook Notification",
-				"parameters": [
-					{
-						"description": "fill customer details and receive midtrans token",
-						"name": "request",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object"
-						}
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"$ref": "#/definitions/dto.WebhookMidtransResponse"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/dto.APIResponse"
-						}
-					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"dto.APIResponse": {
-			"type": "object",
-			"properties": {
-				"data": {},
-				"errors": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.ErrorDetail"
-					}
-				},
-				"message": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.AuthUserResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.UserAuthData"
-				},
-				"message": {
-					"type": "string",
-					"example": "register successful"
-				}
-			}
-		},
-		"dto.CategoryDTO": {
-			"type": "object",
-			"properties": {
-				"createdAt": {
-					"type": "string"
-				},
-				"id": {
-					"type": "string",
-					"example": "category-uuid"
-				},
-				"name": {
-					"type": "string",
-					"example": "Outerwear"
-				},
-				"slug": {
-					"type": "string",
-					"example": "outerwear-2"
-				},
-				"updatedAt": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.CategoryInput": {
-			"type": "object",
-			"required": ["name"],
-			"properties": {
-				"name": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.CategoryListResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.CategoryDTO"
-					}
-				},
-				"message": {
-					"type": "string",
-					"example": "categories fetched"
-				}
-			}
-		},
-		"dto.CategoryResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.CategoryDTO"
-				},
-				"message": {
-					"type": "string",
-					"example": "category fetched"
-				}
-			}
-		},
-		"dto.ErrorDetail": {
-			"type": "object",
-			"properties": {
-				"field": {
-					"type": "string"
-				},
-				"message": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.IDData": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "string",
-					"example": "resource-uuid"
-				}
-			}
-		},
-		"dto.IDResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.IDData"
-				},
-				"message": {
-					"type": "string",
-					"example": "resource deleted"
-				}
-			}
-		},
-		"dto.LoginInput": {
-			"type": "object",
-			"required": ["email", "password"],
-			"properties": {
-				"email": {
-					"type": "string"
-				},
-				"password": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.MidtransCheckout": {
-			"type": "object",
-			"properties": {
-				"redirect_url": {
-					"type": "string",
-					"example": "midtrans-snap.url"
-				},
-				"token": {
-					"type": "string",
-					"example": "generated-midtrans-uuid"
-				}
-			}
-		},
-		"dto.Pagination": {
-			"type": "object",
-			"properties": {
-				"page": {
-					"type": "integer"
-				},
-				"pageSize": {
-					"type": "integer"
-				},
-				"total": {
-					"type": "integer"
-				},
-				"totalPages": {
-					"type": "integer"
-				}
-			}
-		},
-		"dto.ProductDTO": {
-			"type": "object",
-			"properties": {
-				"categoryId": {
-					"type": "string",
-					"example": "category-uuid"
-				},
-				"categoryName": {
-					"type": "string",
-					"example": "Outerwear"
-				},
-				"categorySlug": {
-					"type": "string",
-					"example": "outerwear-2"
-				},
-				"createdAt": {
-					"type": "string"
-				},
-				"description": {
-					"type": "string",
-					"example": "cool looking hoodie"
-				},
-				"id": {
-					"type": "string",
-					"example": "product-uuid"
-				},
-				"imageFileId": {
-					"type": "string",
-					"example": "imagekit-id"
-				},
-				"imageUrl": {
-					"type": "string",
-					"example": "image.url"
-				},
-				"isActive": {
-					"type": "boolean",
-					"example": true
-				},
-				"name": {
-					"type": "string",
-					"example": "Oversized Hoodie"
-				},
-				"price": {
-					"type": "integer",
-					"example": 100000
-				},
-				"slug": {
-					"type": "string",
-					"example": "oversized-hoodie"
-				},
-				"updatedAt": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.ProductListResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.ProductDTO"
-					}
-				},
-				"message": {
-					"type": "string",
-					"example": "products fetched"
-				}
-			}
-		},
-		"dto.ProductResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.ProductDTO"
-				},
-				"message": {
-					"type": "string",
-					"example": "product fetched"
-				}
-			}
-		},
-		"dto.ProductVariantDTO": {
-			"type": "object",
-			"properties": {
-				"color": {
-					"type": "string",
-					"example": "Black"
-				},
-				"createdAt": {
-					"type": "string"
-				},
-				"id": {
-					"type": "string",
-					"example": "variant-uuid"
-				},
-				"price": {
-					"type": "integer",
-					"example": 9000
-				},
-				"productId": {
-					"type": "string",
-					"example": "product-uuid"
-				},
-				"size": {
-					"type": "string",
-					"example": "M"
-				},
-				"sku": {
-					"type": "string",
-					"example": "Hoodie-M-BLK"
-				},
-				"stock": {
-					"type": "integer",
-					"example": 10
-				},
-				"updatedAt": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.ProductVariantInput": {
-			"type": "object",
-			"required": ["price", "sku", "stock"],
-			"properties": {
-				"color": {
-					"type": "string"
-				},
-				"price": {
-					"type": "integer",
-					"minimum": 0
-				},
-				"size": {
-					"type": "string"
-				},
-				"sku": {
-					"type": "string"
-				},
-				"stock": {
-					"type": "integer",
-					"minimum": 0
-				}
-			}
-		},
-		"dto.ProductVariantListResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.ProductVariantDTO"
-					}
-				},
-				"message": {
-					"type": "string",
-					"example": "product variants fetched"
-				}
-			}
-		},
-		"dto.ProductVariantResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.ProductVariantDTO"
-				},
-				"message": {
-					"type": "string",
-					"example": "product variant fetched"
-				}
-			}
-		},
-		"dto.PublicCategoryDTO": {
-			"type": "object",
-			"properties": {
-				"createdAt": {
-					"type": "string"
-				},
-				"id": {
-					"type": "string",
-					"example": "category-uuid"
-				},
-				"name": {
-					"type": "string",
-					"example": "Outerwear"
-				},
-				"slug": {
-					"type": "string",
-					"example": "outerwear-2"
-				}
-			}
-		},
-		"dto.PublicCategoryListResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.PublicCategoryDTO"
-					}
-				},
-				"message": {
-					"type": "string",
-					"example": "categories fetched"
-				}
-			}
-		},
-		"dto.PublicCategoryResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.PublicCategoryDTO"
-				},
-				"message": {
-					"type": "string",
-					"example": "category fetched"
-				}
-			}
-		},
-		"dto.PublicCheckoutResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.MidtransCheckout"
-				},
-				"message": {
-					"type": "string",
-					"example": "order created"
-				}
-			}
-		},
-		"dto.PublicOrderInput": {
-			"type": "object",
-			"required": [
-				"customerEmail",
-				"customerName",
-				"items",
-				"shippingAddress",
-				"shippingCity",
-				"shippingPostalCode"
-			],
-			"properties": {
-				"customerEmail": {
-					"type": "string"
-				},
-				"customerName": {
-					"type": "string"
-				},
-				"customerPhone": {
-					"type": "string"
-				},
-				"items": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.PublicOrderItemInput"
-					}
-				},
-				"shippingAddress": {
-					"type": "string"
-				},
-				"shippingCity": {
-					"type": "string"
-				},
-				"shippingPostalCode": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.PublicOrderItemInput": {
-			"type": "object",
-			"required": ["productId", "quantity"],
-			"properties": {
-				"productId": {
-					"type": "string"
-				},
-				"quantity": {
-					"type": "integer"
-				},
-				"variantId": {
-					"type": "string"
-				}
-			}
-		},
-		"dto.PublicProductDTO": {
-			"type": "object",
-			"properties": {
-				"categoryName": {
-					"type": "string",
-					"example": "Outerwear"
-				},
-				"categorySlug": {
-					"type": "string",
-					"example": "outerwear-2"
-				},
-				"description": {
-					"type": "string",
-					"example": "cool looking hoodie"
-				},
-				"id": {
-					"type": "string",
-					"example": "product-uuid"
-				},
-				"imageUrl": {
-					"type": "string",
-					"example": "image.url"
-				},
-				"name": {
-					"type": "string",
-					"example": "Oversized Hoodie"
-				},
-				"price": {
-					"type": "integer",
-					"example": 100000
-				},
-				"slug": {
-					"type": "string",
-					"example": "oversized-hoodie"
-				}
-			}
-		},
-		"dto.PublicProductDetail": {
-			"type": "object",
-			"properties": {
-				"categoryName": {
-					"type": "string"
-				},
-				"categorySlug": {
-					"type": "string"
-				},
-				"description": {
-					"type": "string"
-				},
-				"id": {
-					"type": "string"
-				},
-				"imageUrl": {
-					"type": "string"
-				},
-				"name": {
-					"type": "string"
-				},
-				"price": {
-					"type": "integer"
-				},
-				"slug": {
-					"type": "string"
-				},
-				"variants": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.PublicProductVariant"
-					}
-				}
-			}
-		},
-		"dto.PublicProductListResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/dto.PublicProductDTO"
-					}
-				},
-				"message": {
-					"type": "string",
-					"example": "products fetched"
-				},
-				"metadata": {
-					"$ref": "#/definitions/dto.Pagination"
-				}
-			}
-		},
-		"dto.PublicProductResponse": {
-			"type": "object",
-			"properties": {
-				"data": {
-					"$ref": "#/definitions/dto.PublicProductDetail"
-				},
-				"message": {
-					"type": "string",
-					"example": "product fetched"
-				}
-			}
-		},
-		"dto.PublicProductVariant": {
-			"type": "object",
-			"properties": {
-				"color": {
-					"type": "string",
-					"example": "Black"
-				},
-				"id": {
-					"type": "string",
-					"example": "variant-uuid"
-				},
-				"price": {
-					"type": "integer",
-					"example": 0
-				},
-				"size": {
-					"type": "string",
-					"example": "M"
-				},
-				"sku": {
-					"type": "string",
-					"example": "Hoodie-M-BLK"
-				},
-				"stock": {
-					"type": "integer",
-					"example": 10
-				}
-			}
-		},
-		"dto.RegisterInput": {
-			"type": "object",
-			"required": ["email", "name", "password"],
-			"properties": {
-				"email": {
-					"type": "string"
-				},
-				"name": {
-					"type": "string"
-				},
-				"password": {
-					"type": "string",
-					"minLength": 6
-				}
-			}
-		},
-		"dto.UserAuthData": {
-			"type": "object",
-			"properties": {
-				"token": {
-					"type": "string"
-				},
-				"user": {
-					"$ref": "#/definitions/dto.UserDTO"
-				}
-			}
-		},
-		"dto.UserDTO": {
-			"type": "object",
-			"properties": {
-				"email": {
-					"type": "string",
-					"example": "john.doe@example.com"
-				},
-				"id": {
-					"type": "string",
-					"example": "user-uuid"
-				},
-				"name": {
-					"type": "string",
-					"example": "John Doe"
-				},
-				"role": {
-					"type": "string",
-					"example": "customer"
-				}
-			}
-		},
-		"dto.WebhookMidtransResponse": {
-			"type": "object",
-			"properties": {
-				"message": {
-					"type": "string",
-					"example": "webhook processed"
-				}
-			}
-		}
-	}
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server.",
+        "title": "MockCommerce API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/admin/categories": {
+            "get": {
+                "description": "Get all categories (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-categories"
+                ],
+                "summary": "List categories",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CategoryListResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new category (admin only)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-categories"
+                ],
+                "summary": "Create category",
+                "parameters": [
+                    {
+                        "description": "Name only; slug is auto-generated",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CategoryInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CategoryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/categories/{id}": {
+            "get": {
+                "description": "Get category detail by ID (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-categories"
+                ],
+                "summary": "Get category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CategoryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update category by ID (admin only)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-categories"
+                ],
+                "summary": "Update category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Name only; slug is auto-generated",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CategoryInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CategoryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete category by ID (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-categories"
+                ],
+                "summary": "Delete category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.IDResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/products": {
+            "get": {
+                "description": "Get all products (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-products"
+                ],
+                "summary": "List products",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductListResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new product with one image via multipart/form-data (admin only)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-products"
+                ],
+                "summary": "Create product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Description",
+                        "name": "description",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "number",
+                        "description": "Price",
+                        "name": "price",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Category UUID",
+                        "name": "categoryId",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Product type flag: false=simple, true=variant",
+                        "name": "hasVariant",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Required only for simple product; default variant stock",
+                        "name": "stock",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Active flag (default true)",
+                        "name": "isActive",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "Product image (JPEG, PNG, GIF, or WebP)",
+                        "name": "image",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/products/{id}": {
+            "get": {
+                "description": "Get product detail by ID (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-products"
+                ],
+                "summary": "Get product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update product by ID. Send multipart/form-data; include a new image file to replace the stored image (admin only)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-products"
+                ],
+                "summary": "Update product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Product name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Description",
+                        "name": "description",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "number",
+                        "description": "Price",
+                        "name": "price",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Category UUID",
+                        "name": "categoryId",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Product type flag: only false-\u003etrue conversion is allowed",
+                        "name": "hasVariant",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Active flag",
+                        "name": "isActive",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "New image (omit to keep current)",
+                        "name": "image",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete product by ID (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-products"
+                ],
+                "summary": "Delete product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.IDResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/products/{id}/publish": {
+            "patch": {
+                "description": "Set product active flag through publish validation. Publishing requires valid variant invariants.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-products"
+                ],
+                "summary": "Publish/unpublish product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Publish payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductPublishInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/products/{id}/variants": {
+            "get": {
+                "description": "List product variants by product ID (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-product-variants"
+                ],
+                "summary": "List product variants",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductVariantListResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create product variant by product ID (admin only)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-product-variants"
+                ],
+                "summary": "Create product variant",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Product variant payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductVariantInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductVariantResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/products/{id}/variants/{variantId}": {
+            "put": {
+                "description": "Update product variant by product and variant ID (admin only)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-product-variants"
+                ],
+                "summary": "Update product variant",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Variant ID",
+                        "name": "variantId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Product variant payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductVariantInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductVariantResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete product variant by product and variant ID (admin only)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-product-variants"
+                ],
+                "summary": "Delete product variant",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Variant ID",
+                        "name": "variantId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.IDResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "description": "All categories, ordered by name",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "List categories (public)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PublicCategoryListResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{slug}": {
+            "get": {
+                "description": "Category by slug",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "Get category by slug (public)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PublicCategoryResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/checkout": {
+            "post": {
+                "description": "Create a new order and order_items",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "Checkout Order",
+                "parameters": [
+                    {
+                        "description": "fill customer details and receive midtrans token",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PublicOrderInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PublicCheckoutResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "Authenticate user and return JWT token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login user",
+                "parameters": [
+                    {
+                        "description": "Login credentials",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.LoginInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.AuthUserResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "description": "Paginated active products. pageSize default 20 max 50. sort: newest, price_asc, price_desc. categorySlugs: OR filter, comma or repeated",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "List products (public)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page (default 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default 20, max 50)",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "newest, price_asc, price_desc",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Category slugs, comma-separated or repeat param",
+                        "name": "categorySlugs",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PublicProductListResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{slug}": {
+            "get": {
+                "description": "Active product detail by public slug; includes variants",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "Get product by slug (public)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PublicProductResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "description": "Create a new user account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "description": "Registration details",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.RegisterInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.AuthUserResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/webhooks/midtrans": {
+            "post": {
+                "description": "Update Order Status after finalize payment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "Midtrans Webhook Notification",
+                "parameters": [
+                    {
+                        "description": "fill customer details and receive midtrans token",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.WebhookMidtransResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.APIResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ErrorDetail"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.AuthUserResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.UserAuthData"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "register successful"
+                }
+            }
+        },
+        "dto.CategoryDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "category-uuid"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Outerwear"
+                },
+                "slug": {
+                    "type": "string",
+                    "example": "outerwear-2"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CategoryInput": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CategoryListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.CategoryDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "categories fetched"
+                }
+            }
+        },
+        "dto.CategoryResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.CategoryDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "category fetched"
+                }
+            }
+        },
+        "dto.ErrorDetail": {
+            "type": "object",
+            "properties": {
+                "field": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.IDData": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "resource-uuid"
+                }
+            }
+        },
+        "dto.IDResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.IDData"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "resource deleted"
+                }
+            }
+        },
+        "dto.LoginInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.MidtransCheckout": {
+            "type": "object",
+            "properties": {
+                "redirect_url": {
+                    "type": "string",
+                    "example": "midtrans-snap.url"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "generated-midtrans-uuid"
+                }
+            }
+        },
+        "dto.Pagination": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ProductDTO": {
+            "type": "object",
+            "properties": {
+                "categoryId": {
+                    "type": "string",
+                    "example": "category-uuid"
+                },
+                "categoryName": {
+                    "type": "string",
+                    "example": "Outerwear"
+                },
+                "categorySlug": {
+                    "type": "string",
+                    "example": "outerwear-2"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "cool looking hoodie"
+                },
+                "hasVariant": {
+                    "type": "boolean",
+                    "example": false
+                },
+                "id": {
+                    "type": "string",
+                    "example": "product-uuid"
+                },
+                "imageFileId": {
+                    "type": "string",
+                    "example": "imagekit-id"
+                },
+                "imageUrl": {
+                    "type": "string",
+                    "example": "image.url"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Oversized Hoodie"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 100000
+                },
+                "slug": {
+                    "type": "string",
+                    "example": "oversized-hoodie"
+                },
+                "totalStock": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.ProductListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ProductDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "products fetched"
+                }
+            }
+        },
+        "dto.ProductPublishInput": {
+            "type": "object",
+            "required": [
+                "isActive"
+            ],
+            "properties": {
+                "isActive": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "dto.ProductResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.ProductDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "product fetched"
+                }
+            }
+        },
+        "dto.ProductVariantDTO": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "type": "string",
+                    "example": "Black"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "variant-uuid"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 9000
+                },
+                "productId": {
+                    "type": "string",
+                    "example": "product-uuid"
+                },
+                "size": {
+                    "type": "string",
+                    "example": "M"
+                },
+                "sku": {
+                    "type": "string",
+                    "example": "Hoodie-M-BLK"
+                },
+                "stock": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.ProductVariantInput": {
+            "type": "object",
+            "required": [
+                "price",
+                "sku",
+                "stock"
+            ],
+            "properties": {
+                "color": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sku": {
+                    "type": "string"
+                },
+                "stock": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            }
+        },
+        "dto.ProductVariantListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ProductVariantDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "product variants fetched"
+                }
+            }
+        },
+        "dto.ProductVariantResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.ProductVariantDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "product variant fetched"
+                }
+            }
+        },
+        "dto.PublicCategoryDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "category-uuid"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Outerwear"
+                },
+                "slug": {
+                    "type": "string",
+                    "example": "outerwear-2"
+                }
+            }
+        },
+        "dto.PublicCategoryListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.PublicCategoryDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "categories fetched"
+                }
+            }
+        },
+        "dto.PublicCategoryResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.PublicCategoryDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "category fetched"
+                }
+            }
+        },
+        "dto.PublicCheckoutResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.MidtransCheckout"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "order created"
+                }
+            }
+        },
+        "dto.PublicOrderInput": {
+            "type": "object",
+            "required": [
+                "customerEmail",
+                "customerName",
+                "items",
+                "shippingAddress",
+                "shippingCity",
+                "shippingPostalCode"
+            ],
+            "properties": {
+                "customerEmail": {
+                    "type": "string"
+                },
+                "customerName": {
+                    "type": "string"
+                },
+                "customerPhone": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.PublicOrderItemInput"
+                    }
+                },
+                "shippingAddress": {
+                    "type": "string"
+                },
+                "shippingCity": {
+                    "type": "string"
+                },
+                "shippingPostalCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.PublicOrderItemInput": {
+            "type": "object",
+            "required": [
+                "productId",
+                "quantity",
+                "variantId"
+            ],
+            "properties": {
+                "productId": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "variantId": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.PublicProductDTO": {
+            "type": "object",
+            "properties": {
+                "categoryName": {
+                    "type": "string",
+                    "example": "Outerwear"
+                },
+                "categorySlug": {
+                    "type": "string",
+                    "example": "outerwear-2"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "cool looking hoodie"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "product-uuid"
+                },
+                "imageUrl": {
+                    "type": "string",
+                    "example": "image.url"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Oversized Hoodie"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 100000
+                },
+                "slug": {
+                    "type": "string",
+                    "example": "oversized-hoodie"
+                }
+            }
+        },
+        "dto.PublicProductDetail": {
+            "type": "object",
+            "properties": {
+                "categoryName": {
+                    "type": "string"
+                },
+                "categorySlug": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "variants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.PublicProductVariant"
+                    }
+                }
+            }
+        },
+        "dto.PublicProductListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.PublicProductDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "products fetched"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Pagination"
+                }
+            }
+        },
+        "dto.PublicProductResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.PublicProductDetail"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "product fetched"
+                }
+            }
+        },
+        "dto.PublicProductVariant": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "type": "string",
+                    "example": "Black"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "variant-uuid"
+                },
+                "price": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "size": {
+                    "type": "string",
+                    "example": "M"
+                },
+                "sku": {
+                    "type": "string",
+                    "example": "Hoodie-M-BLK"
+                },
+                "stock": {
+                    "type": "integer",
+                    "example": 10
+                }
+            }
+        },
+        "dto.RegisterInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                }
+            }
+        },
+        "dto.UserAuthData": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/dto.UserDTO"
+                }
+            }
+        },
+        "dto.UserDTO": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "john.doe@example.com"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "user-uuid"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "customer"
+                }
+            }
+        },
+        "dto.WebhookMidtransResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "webhook processed"
+                }
+            }
+        }
+    }
 }

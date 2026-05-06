@@ -1,4 +1,4 @@
-/** Admin product types — fill when implementing `src/services/admin/products`. */
+/** Admin product types — mirrors `docs/swagger.json` `dto.Product*`. */
 
 export type AdminProductDTO = {
 	id: string;
@@ -11,19 +11,41 @@ export type AdminProductDTO = {
 	categoryId: string;
 	categoryName: string;
 	categorySlug: string;
+	hasVariant: boolean;
+	totalStock: number;
 	isActive: boolean;
 	createdAt?: string;
 	updatedAt?: string;
 };
 
-export type ProductInput = {
-  name: string;
-  description: string;
-  price: number;
-  categoryId: string;
-  isActive: boolean;
-  image?: File;
-}
+export type ProductCreateInput = {
+	name: string;
+	description: string;
+	price: number;
+	categoryId: string;
+	hasVariant: boolean;
+	/** Required only when `hasVariant === false`. */
+	stock?: number;
+	isActive?: boolean;
+	image?: File;
+};
+
+export type ProductUpdateInput = {
+	name: string;
+	description: string;
+	price: number;
+	categoryId: string;
+	hasVariant: boolean;
+	isActive?: boolean;
+	image?: File;
+};
+
+/** Convenience union used by the form dialog. */
+export type ProductInput = ProductCreateInput;
+
+export type ProductPublishInput = {
+	isActive: boolean;
+};
 
 export type ProductResponse = {
 	data: AdminProductDTO;

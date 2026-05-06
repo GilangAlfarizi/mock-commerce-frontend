@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { AlertTriangle, Info } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,14 +15,23 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { getApiErrorMessage } from "@/lib/api-error";
 import { cn } from "@/lib/utils";
 import type { AdminCategoryDTO } from "@/types/admin/category";
-import type { AdminProductDTO, ProductInput } from "@/types/admin/product";
+import type {
+	AdminProductDTO,
+	ProductCreateInput,
+	ProductUpdateInput,
+} from "@/types/admin/product";
 
 const fieldClassName = cn(
 	"w-full min-w-0 rounded-3xl border border-transparent bg-input/50 px-3 py-2 text-base transition-[color,box-shadow,background-color] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
 );
+
+export type ProductFormSubmit =
+	| { mode: "create"; data: ProductCreateInput }
+	| { mode: "edit"; data: ProductUpdateInput };
 
 type ProductFormBodyProps = {
 	mode: "create" | "edit";
@@ -30,7 +40,7 @@ type ProductFormBodyProps = {
 	categoriesLoading: boolean;
 	isPending: boolean;
 	error: unknown | null;
-	onSubmit: (input: ProductInput) => void;
+	onSubmit: (payload: ProductFormSubmit) => void;
 	onCancel: () => void;
 };
 
@@ -44,6 +54,9 @@ function ProductFormBody({
 	onSubmit,
 	onCancel,
 }: ProductFormBodyProps) {
+	const initialHasVariant =
+		mode === "edit" && initial ? initial.hasVariant : false;
+
 	const [name, setName] = React.useState(
 		mode === "edit" && initial ? initial.name : "",
 	);
@@ -56,10 +69,12 @@ function ProductFormBody({
 	const [categoryId, setCategoryId] = React.useState(
 		mode === "edit" && initial ? initial.categoryId : "",
 	);
-	const [isActive, setIsActive] = React.useState(
-		mode === "edit" && initial ? initial.isActive : true,
-	);
+	const [hasVariant, setHasVariant] = React.useState(initialHasVariant);
+	const [stock, setStock] = React.useState("");
 	const [image, setImage] = React.useState<File | null>(null);
+
+	const isVariantLocked = mode === "edit" && initialHasVariant === true;
+	const isConverting = mode === "edit" && !initialHasVariant && hasVariant;
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -68,22 +83,41 @@ function ProductFormBody({
 		if (!trimmedName || !trimmedDescription) return;
 		if (!categoryId) return;
 
-		const parsed = Number(price);
-		if (!Number.isFinite(parsed) || parsed < 0) return;
+		const parsedPrice = Number(price);
+		if (!Number.isFinite(parsedPrice) || parsedPrice < 0) return;
 
-		if (mode === "create" && !image) return;
+		if (mode === "create") {
+			if (!image) return;
 
-		const input: ProductInput = {
+			let parsedStock: number | undefined;
+			if (!hasVariant) {
+				parsedStock = Number(stock);
+				if (!Number.isFinite(parsedStock) || parsedStock < 0) return;
+			}
+
+			const data: ProductCreateInput = {
+				name: trimmedName,
+				description: trimmedDescription,
+				price: parsedPrice,
+				categoryId,
+				hasVariant,
+				stock: parsedStock,
+				image,
+			};
+			onSubmit({ mode: "create", data });
+			return;
+		}
+
+		const data: ProductUpdateInput = {
 			name: trimmedName,
 			description: trimmedDescription,
-			price: parsed,
+			price: parsedPrice,
 			categoryId,
-			isActive,
+			hasVariant,
+			isActive: isConverting ? false : undefined,
+			image: image ?? undefined,
 		};
-		if (image) {
-			input.image = image;
-		}
-		onSubmit(input);
+		onSubmit({ mode: "edit", data });
 	};
 
 	return (
@@ -93,9 +127,9 @@ function ProductFormBody({
 					{mode === "create" ? "New product" : "Edit product"}
 				</DialogTitle>
 				<DialogDescription>
-					Slug is generated on the server when you save. Set the listing details
-					and optional new image (edit keeps the current image if you leave this
-					blank).
+					Slug is generated on the server when you save. Set listing details and
+					choose between a simple product (single stock) or a variant product
+					(SKUs created in Variants).
 				</DialogDescription>
 			</DialogHeader>
 			<div className="grid max-h-[min(70vh,32rem)] gap-3 overflow-y-auto py-2 pr-1">
@@ -162,20 +196,83 @@ function ProductFormBody({
 						</select>
 					</div>
 				</div>
-				<div className="flex items-center gap-2">
-					<input
-						id="product-active"
-						name="isActive"
-						type="checkbox"
-						checked={isActive}
-						onChange={(e) => setIsActive(e.target.checked)}
-						disabled={isPending}
-						className="size-4 rounded border border-input accent-primary"
-					/>
-					<Label htmlFor="product-active" className="font-normal">
-						Active (visible in storefront)
-					</Label>
+
+				<div className="rounded-2xl border border-border bg-muted/20 p-3">
+					<div className="flex items-start justify-between gap-3">
+						<div className="space-y-1">
+							<Label htmlFor="product-has-variant" className="font-medium">
+								Variant product
+							</Label>
+							<p className="text-xs text-muted-foreground">
+								Off = simple product with a single stock value. On = create
+								separate SKUs in the Variants page.
+							</p>
+						</div>
+						<Switch
+							id="product-has-variant"
+							checked={hasVariant}
+							onCheckedChange={(next) => setHasVariant(Boolean(next))}
+							disabled={isPending || isVariantLocked}
+						/>
+					</div>
+
+					{isVariantLocked ? (
+						<p className="mt-2 flex items-start gap-1.5 text-xs text-muted-foreground">
+							<Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+							Variant -&gt; simple conversion is not supported.
+						</p>
+					) : null}
+
+					{!hasVariant && mode === "create" ? (
+						<div className="mt-3 grid gap-2">
+							<Label htmlFor="product-stock">Stock</Label>
+							<Input
+								id="product-stock"
+								name="stock"
+								type="number"
+								min={0}
+								inputMode="numeric"
+								autoComplete="off"
+								value={stock}
+								onChange={(e) => setStock(e.target.value)}
+								disabled={isPending}
+								placeholder="0"
+								required
+							/>
+							<p className="text-xs text-muted-foreground">
+								The backend creates a single default variant with this stock
+								value.
+							</p>
+						</div>
+					) : null}
+
+					{!hasVariant && mode === "edit" && initial ? (
+						<div className="mt-3 rounded-xl border border-dashed bg-background p-3">
+							<p className="text-xs text-muted-foreground">Total stock</p>
+							<p className="text-sm font-medium">{initial.totalStock}</p>
+							<p className="mt-1 text-xs text-muted-foreground">
+								Stock is managed in Variants -&gt; default variant for simple
+								products.
+							</p>
+						</div>
+					) : null}
+
+					{hasVariant ? (
+						<p className="mt-3 flex items-start gap-1.5 rounded-xl border border-dashed bg-background px-3 py-2 text-xs text-muted-foreground">
+							<Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+							This product requires variants before it can be published.
+						</p>
+					) : null}
+
+					{isConverting ? (
+						<p className="mt-3 flex items-start gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+							<AlertTriangle className="mt-0.5 size-3.5 shrink-0" aria-hidden />
+							Converting to a variant product will require variants before
+							publishing. The product will be saved as draft.
+						</p>
+					) : null}
 				</div>
+
 				<div className="grid gap-2">
 					<Label htmlFor="product-image">
 						Image{" "}
@@ -233,12 +330,11 @@ export type ProductFormDialogProps = {
 	onOpenChange: (open: boolean) => void;
 	mode: "create" | "edit";
 	initial?: AdminProductDTO | null;
-	/** Options for the category select — usually from `useAdminCategories()`. */
 	categories?: AdminCategoryDTO[];
 	categoriesLoading?: boolean;
 	isPending: boolean;
 	error: unknown | null;
-	onSubmit: (input: ProductInput) => void;
+	onSubmit: (payload: ProductFormSubmit) => void;
 };
 
 function ProductFormDialog({

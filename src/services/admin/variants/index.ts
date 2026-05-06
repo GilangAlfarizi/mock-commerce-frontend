@@ -1,3 +1,6 @@
-/** Admin variants service — implement when wiring `/admin/products/:id/variants`. */
-
-export {};
+export {
+	listAdminVariants,
+	createAdminVariant,
+	updateAdminVariant,
+	deleteAdminVariant,
+} from "./variant.service";

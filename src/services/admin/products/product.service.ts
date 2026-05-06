@@ -2,21 +2,43 @@ import { api } from "@/services/axios";
 import { IDResponse } from "@/types/admin/category";
 import {
 	AdminProductDTO,
+	ProductCreateInput,
 	ProductInput,
 	ProductListResponse,
+	ProductPublishInput,
 	ProductResponse,
+	ProductUpdateInput,
 } from "@/types/admin/product";
 
-function toProductFormData(input: ProductInput): FormData {
-	const formData = new FormData();
+function appendSharedFields(
+	formData: FormData,
+	input: ProductCreateInput | ProductUpdateInput,
+): void {
 	formData.append("name", input.name);
 	formData.append("description", input.description);
 	formData.append("price", String(input.price));
 	formData.append("categoryId", input.categoryId);
-	formData.append("isActive", String(input.isActive));
+	formData.append("hasVariant", String(input.hasVariant));
+	if (typeof input.isActive === "boolean") {
+		formData.append("isActive", String(input.isActive));
+	}
 	if (input.image) {
 		formData.append("image", input.image);
 	}
+}
+
+function toCreateFormData(input: ProductCreateInput): FormData {
+	const formData = new FormData();
+	appendSharedFields(formData, input);
+	if (!input.hasVariant && typeof input.stock === "number") {
+		formData.append("stock", String(input.stock));
+	}
+	return formData;
+}
+
+function toUpdateFormData(input: ProductUpdateInput): FormData {
+	const formData = new FormData();
+	appendSharedFields(formData, input);
 	return formData;
 }
 
@@ -33,11 +55,11 @@ export async function getAdminProduct(id: string): Promise<ProductResponse> {
 }
 
 export async function createAdminProduct(
-	input: ProductInput,
+	input: ProductCreateInput,
 ): Promise<ProductResponse> {
 	const { data } = await api.post<ProductResponse>(
 		"/admin/products",
-		toProductFormData(input),
+		toCreateFormData(input),
 		{
 			headers: { "Content-Type": "multipart/form-data" },
 		},
@@ -47,11 +69,11 @@ export async function createAdminProduct(
 
 export async function updateAdminProduct(
 	id: string,
-	input: ProductInput,
+	input: ProductUpdateInput,
 ): Promise<ProductResponse> {
 	const { data } = await api.put<ProductResponse>(
 		`/admin/products/${encodeURIComponent(id)}`,
-		toProductFormData(input),
+		toUpdateFormData(input),
 		{
 			headers: { "Content-Type": "multipart/form-data" },
 		},
@@ -66,4 +88,21 @@ export async function deleteAdminProduct(id: string): Promise<IDResponse> {
 	return data;
 }
 
-export type { AdminProductDTO, ProductInput };
+export async function publishAdminProduct(
+	id: string,
+	isActive: boolean,
+): Promise<ProductResponse> {
+	const body: ProductPublishInput = { isActive };
+	const { data } = await api.patch<ProductResponse>(
+		`/admin/products/${encodeURIComponent(id)}/publish`,
+		body,
+	);
+	return data;
+}
+
+export type {
+	AdminProductDTO,
+	ProductCreateInput,
+	ProductInput,
+	ProductUpdateInput,
+};

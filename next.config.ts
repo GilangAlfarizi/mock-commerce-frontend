@@ -7,8 +7,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ik.imagekit.io",
-        port: "",
-        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        // port: "",
+        // pathname: "/**",
       },
     ],
   },
