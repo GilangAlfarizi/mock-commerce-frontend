@@ -282,6 +282,331 @@
                 }
             }
         },
+        "/admin/orders": {
+            "get": {
+                "description": "List orders with status filter (active includes pending/processing/shipped, history includes delivered/cancelled).",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-orders"
+                ],
+                "summary": "List orders",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "active",
+                        "description": "Status group: active|history",
+                        "name": "Status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OrderListResposnse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/orders/{id}": {
+            "get": {
+                "description": "Get order by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-orders"
+                ],
+                "summary": "Get order",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Order ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OrderDetailDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/orders/{id}/customer-detail": {
+            "patch": {
+                "description": "Update customer name / email / phone on the order snapshot.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-orders"
+                ],
+                "summary": "Update customer detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Order ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Customer detail payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CustomerDetailUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/orders/{id}/order-detail": {
+            "patch": {
+                "description": "Update status / courier / tracking number with strict transition rules.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-orders"
+                ],
+                "summary": "Update order detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Order ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Order detail payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.OrderDetailUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/orders/{id}/shipping-detail": {
+            "patch": {
+                "description": "Update shipping address / city / postal code on the order snapshot.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin-orders"
+                ],
+                "summary": "Update shipping detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Order ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Shipping detail payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ShippingDetailUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/products": {
             "get": {
                 "description": "Get all products (admin only)",
@@ -1130,6 +1455,68 @@
                 }
             }
         },
+        "/order/{orderNumber}": {
+            "get": {
+                "description": "Provide order detail for user to track",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "public"
+                ],
+                "summary": "Get Customer Order",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Order Number",
+                        "name": "orderNumber",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OrderDetailDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.APIResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "description": "Paginated active products. pageSize default 20 max 50. sort: newest, price_asc, price_desc. categorySlugs: OR filter, comma or repeated",
@@ -1405,6 +1792,28 @@
                 }
             }
         },
+        "dto.CustomerDetailUpdateInput": {
+            "type": "object",
+            "required": [
+                "customerEmail",
+                "customerName",
+                "customerPhone"
+            ],
+            "properties": {
+                "customerEmail": {
+                    "type": "string",
+                    "example": "example@gmail.com"
+                },
+                "customerName": {
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "customerPhone": {
+                    "type": "string",
+                    "example": "081234567890"
+                }
+            }
+        },
         "dto.ErrorDetail": {
             "type": "object",
             "properties": {
@@ -1462,6 +1871,207 @@
                 "token": {
                     "type": "string",
                     "example": "generated-midtrans-uuid"
+                }
+            }
+        },
+        "dto.OrderDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z"
+                },
+                "customerEmail": {
+                    "type": "string",
+                    "example": "example@gmail.com"
+                },
+                "customerName": {
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "customerPhone": {
+                    "type": "string",
+                    "example": "081234567890"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "order-uuid"
+                },
+                "orderNumber": {
+                    "type": "string",
+                    "example": "ORD-123456"
+                },
+                "paymentStatus": {
+                    "description": "ShippingAddress    string     `json:\"shippingAddress\" example:\"Jl. Melati No. 20\"`\nShippingCity       string     `json:\"shippingCity\" example:\"Tangerang\"`\nShippingPostalCode string     `json:\"shippingPostalCode\" example:\"15810\"`",
+                    "type": "string",
+                    "example": "paid"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "pending"
+                },
+                "totalPrice": {
+                    "description": "Courier            string     `json:\"courier\" example:\"JNE\"`\nTrackingNumber     string     `json:\"trackingNumber\" example:\"JNE-123456789\"`\nShippedAt          *time.Time `json:\"shippedAt,omitempty\" example:\"2021-01-01T00:00:00Z\"`\nDeliveredAt        *time.Time `json:\"deliveredAt,omitempty\" example:\"2021-01-01T00:00:00Z\"`",
+                    "type": "integer",
+                    "example": 100000
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z"
+                }
+            }
+        },
+        "dto.OrderDetailDTO": {
+            "type": "object",
+            "properties": {
+                "courier": {
+                    "type": "string",
+                    "example": "SiCepat"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2023-12-01T09:45:00Z"
+                },
+                "customerEmail": {
+                    "type": "string",
+                    "example": "jane.smith@example.com"
+                },
+                "customerName": {
+                    "type": "string",
+                    "example": "Jane Smith"
+                },
+                "customerPhone": {
+                    "type": "string",
+                    "example": "+628123456789"
+                },
+                "deliveredAt": {
+                    "type": "string",
+                    "example": "2023-12-05T15:00:00Z"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "c8a7b9e6-0d7e-4fa2-93e6-7003a932b741"
+                },
+                "items": {
+                    "description": "object is unsupported type in example value `[{{$ref: '#/definitions/dto.OrderItemDTO'}}]`",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.OrderItemDTO"
+                    }
+                },
+                "orderNumber": {
+                    "type": "string",
+                    "example": "ORD-20240101-0001"
+                },
+                "paymentStatus": {
+                    "type": "string",
+                    "example": "pending"
+                },
+                "shippedAt": {
+                    "type": "string",
+                    "example": "2023-12-02T12:00:00Z"
+                },
+                "shippingAddress": {
+                    "type": "string",
+                    "example": "Jl. Anggrek No. 15"
+                },
+                "shippingCity": {
+                    "type": "string",
+                    "example": "Jakarta"
+                },
+                "shippingPostalCode": {
+                    "type": "string",
+                    "example": "10230"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "processing"
+                },
+                "totalPrice": {
+                    "type": "integer",
+                    "example": 250000
+                },
+                "trackingNumber": {
+                    "type": "string",
+                    "example": "SICEPAT-987654321"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2023-12-03T10:00:00Z"
+                }
+            }
+        },
+        "dto.OrderDetailUpdateInput": {
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "courier": {
+                    "type": "string",
+                    "example": "JNE"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "processing",
+                        "shipped",
+                        "delivered",
+                        "cancelled"
+                    ],
+                    "example": "shipped"
+                },
+                "trackingNumber": {
+                    "type": "string",
+                    "example": "JNE-123456789"
+                }
+            }
+        },
+        "dto.OrderItemDTO": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "order-item-uuid"
+                },
+                "productName": {
+                    "type": "string",
+                    "example": "Product Name"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "totalPrice": {
+                    "type": "integer",
+                    "example": 100000
+                },
+                "variantColor": {
+                    "type": "string",
+                    "example": "Red"
+                },
+                "variantSKU": {
+                    "type": "string",
+                    "example": "SKU-123456"
+                },
+                "variantSize": {
+                    "type": "string",
+                    "example": "M"
+                }
+            }
+        },
+        "dto.OrderListResposnse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.OrderDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "orders fetched"
                 }
             }
         },
@@ -1939,6 +2549,28 @@
                 "password": {
                     "type": "string",
                     "minLength": 6
+                }
+            }
+        },
+        "dto.ShippingDetailUpdateInput": {
+            "type": "object",
+            "required": [
+                "shippingAddress",
+                "shippingCity",
+                "shippingPostalCode"
+            ],
+            "properties": {
+                "shippingAddress": {
+                    "type": "string",
+                    "example": "Jl. Melati No. 20"
+                },
+                "shippingCity": {
+                    "type": "string",
+                    "example": "Tangerang"
+                },
+                "shippingPostalCode": {
+                    "type": "string",
+                    "example": "15810"
                 }
             }
         },

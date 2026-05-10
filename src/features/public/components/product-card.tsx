@@ -1,7 +1,8 @@
 import { ProductCardProps } from "@/types/product";
-import { toCurrency } from "@/lib/utils";
+import { cn, toCurrency } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import { SearchCode } from "lucide-react";
-import IconLinkButton from "./icon-link-button";
+import Link from "next/link";
 
 export default function ProductCard({
 	id,
@@ -32,14 +33,18 @@ export default function ProductCard({
 				<p className="line-clamp-2 text-xs text-muted-foreground">
 					{description}
 				</p>
-				<div className="mt-auto flex items-center justify-between pt-4">
-					<p className="text-sm font-semibold">{toCurrency(price)}</p>
-					<IconLinkButton
+				<div className="mt-auto flex items-center justify-between gap-2 pt-4">
+					<p className="min-w-0 text-sm font-semibold">{toCurrency(price)}</p>
+					<Link
 						href={`/products/${slug}`}
-						icon={SearchCode}
-						tooltip="Detail"
-						side="left"
-					/>
+						className={cn(
+							buttonVariants({ variant: "outline", size: "default" }),
+							"rounded-none border-black bg-cream",
+						)}
+						title="Detail"
+						aria-label={`Product detail: ${name}`}>
+						<SearchCode className="size-4" aria-hidden />
+					</Link>
 				</div>
 			</div>
 		</article>

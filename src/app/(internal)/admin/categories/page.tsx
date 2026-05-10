@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoriesView } from "@/features/internal/categories/categories-view";
+import { CategoriesView } from "@/features/internal/categories";
 
 export default function AdminCategoriesPage() {
 	return <CategoriesView />;

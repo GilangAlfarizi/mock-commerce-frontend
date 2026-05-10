@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import clsx from "clsx";
 import { PublicSort } from "@/types/product";
@@ -33,25 +34,29 @@ export function ProductsNav({
 	return (
 		<>
 			<nav className="flex flex-wrap items-center justify-center gap-2 pt-2">
-				<Button
-					variant="outline"
-					size="sm"
-					className="rounded-none border-black bg-surface"
-					disabled={page <= 1}
-					asChild={page > 1}>
-					{page > 1 ? (
-						<Link
-							href={`/products?${buildQueryString({
-								page: page - 1,
-								sort,
-								categorySlugs,
-							})}`}>
-							Previous
-						</Link>
-					) : (
-						<span>Previous</span>
-					)}
-				</Button>
+				{page > 1 ? (
+					<Link
+						href={`/products?${buildQueryString({
+							page: page - 1,
+							sort,
+							categorySlugs,
+						})}`}
+						className={cn(
+							buttonVariants({ variant: "outline", size: "sm" }),
+							"rounded-none border-black bg-surface",
+						)}>
+						Previous
+					</Link>
+				) : (
+					<span
+						aria-disabled="true"
+						className={cn(
+							buttonVariants({ variant: "outline", size: "sm" }),
+							"rounded-none border-black bg-surface pointer-events-none opacity-50",
+						)}>
+						Previous
+					</span>
+				)}
 
 				{Array.from({ length: totalPages }).map((_, index) => {
 					const currentPage = index + 1;
@@ -76,25 +81,29 @@ export function ProductsNav({
 					);
 				})}
 
-				<Button
-					variant="outline"
-					size="sm"
-					className="rounded-none border-black bg-surface"
-					disabled={page >= totalPages}
-					asChild={page < totalPages}>
-					{page < totalPages ? (
-						<Link
-							href={`/products?${buildQueryString({
-								page: page + 1,
-								sort,
-								categorySlugs,
-							})}`}>
-							Next
-						</Link>
-					) : (
-						<span>Next</span>
-					)}
-				</Button>
+				{page < totalPages ? (
+					<Link
+						href={`/products?${buildQueryString({
+							page: page + 1,
+							sort,
+							categorySlugs,
+						})}`}
+						className={cn(
+							buttonVariants({ variant: "outline", size: "sm" }),
+							"rounded-none border-black bg-surface",
+						)}>
+						Next
+					</Link>
+				) : (
+					<span
+						aria-disabled="true"
+						className={cn(
+							buttonVariants({ variant: "outline", size: "sm" }),
+							"rounded-none border-black bg-surface pointer-events-none opacity-50",
+						)}>
+						Next
+					</span>
+				)}
 			</nav>
 		</>
 	);
