@@ -1,5 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Sparkles, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function HomeJumbotron() {
@@ -21,21 +24,33 @@ export default function HomeJumbotron() {
 					built for people who live in tabs and terminals.
 				</p>
 				<div className="flex flex-wrap gap-3">
-					<Button className="rounded-none border border-black" asChild>
-						<Link href="/products">
-							Start shopping
-							<ArrowRight className="size-4" />
-						</Link>
-					</Button>
-					<Button
-						variant="outline"
-						className="rounded-none border-black bg-surface hover:bg-accent"
-						asChild>
-						<Link href="/products">Browse highlights</Link>
-					</Button>
+					<motion.div
+						whileHover={{ scale: 1.1, y: -2 }}
+						whileTap={{ scale: 0.9 }}>
+						<Button className="rounded-none border border-black" asChild>
+							<Link href="/products">
+								Start shopping
+								<ArrowRight className="size-4" />
+							</Link>
+						</Button>
+					</motion.div>
+					<motion.div
+						whileHover={{ scale: 1.1, y: -2 }}
+						whileTap={{ scale: 0.9 }}>
+						<Button
+							variant="outline"
+							className="rounded-none border-black bg-surface hover:bg-accent"
+							asChild>
+							<Link href="/products">Browse highlights</Link>
+						</Button>
+					</motion.div>
 				</div>
 			</div>
-			<div className="border border-black bg-accent p-4">
+
+			<motion.div
+				animate={{ y: [0, -6, 0] }}
+				transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+				className="border border-black bg-accent p-4">
 				<div className="border border-black bg-surface p-4">
 					<p className="font-mono text-xs text-muted-foreground">
 						$ npm run outfit -- --mode confident
@@ -55,7 +70,7 @@ export default function HomeJumbotron() {
 						</div>
 					</div>
 				</div>
-			</div>
+			</motion.div>
 		</section>
 	);
 }

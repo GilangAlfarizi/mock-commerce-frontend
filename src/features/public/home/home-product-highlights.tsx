@@ -4,6 +4,7 @@ import { HIGHLIGHT_PRODUCT_COUNT } from "@/config/catalog";
 import { usePublicProducts } from "@/hooks/use-public-products";
 import Link from "next/link";
 import ProductGrid from "../components/product-grid";
+import { motion } from "framer-motion";
 
 export default function HomeProductHighlights() {
 	const { data, isPending, isError, error } = usePublicProducts({
@@ -13,7 +14,12 @@ export default function HomeProductHighlights() {
 	});
 
 	return (
-		<section className="space-y-4 border border-black bg-cream p-5 text-cream-foreground md:p-6">
+		<motion.section
+			initial={{ opacity: 0, y: 40 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			viewport={{ once: true, amount: 0.2 }}
+			transition={{ duration: 0.5 }}
+			className="space-y-4 border border-black bg-cream p-5 text-cream-foreground md:p-6">
 			<div className="flex items-end justify-between gap-4">
 				<h2 className="font-mono text-2xl font-semibold tracking-tight">
 					Highlighted products
@@ -43,10 +49,8 @@ export default function HomeProductHighlights() {
 			) : null}
 
 			{!isPending && !isError && data ? (
-				<ProductGrid
-					products={data.data.slice(0, HIGHLIGHT_PRODUCT_COUNT)}
-				/>
+				<ProductGrid products={data.data.slice(0, HIGHLIGHT_PRODUCT_COUNT)} />
 			) : null}
-		</section>
+		</motion.section>
 	);
 }
